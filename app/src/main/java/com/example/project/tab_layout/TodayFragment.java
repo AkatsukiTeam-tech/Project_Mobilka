@@ -14,25 +14,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activities.DetailsFilmActivity;
-import com.example.project.Activities.FilmSessionsActivity;
-import com.example.project.Activities.MainActivity;
-import com.example.project.Activities.PlaceAndPayActivity;
-import com.example.project.Entities.Cadres;
-import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
 import com.example.project.R;
-import com.example.project.bottom_menu.HomeFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,10 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class TodayFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -99,7 +86,9 @@ public class TodayFragment extends Fragment {
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            url = new URL("http://10.10.17.195:8080/api/allFilms");
+
+            //ip ---------------------------------------------
+            url = new URL("http://:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection)url.openConnection();
@@ -134,7 +123,11 @@ public class TodayFragment extends Fragment {
                 }
             } else {
                 // ошибка
-                System.out.println("-");
+                System.out.println("########    ######       ######         ######      ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ######       ######       ##      ##    ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
