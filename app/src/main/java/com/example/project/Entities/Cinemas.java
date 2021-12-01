@@ -4,20 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class Cinemas {
+public class Cinemas implements Serializable {
 
     private Long cinema_id;
     private String ciname_name;
     private String ciname_address;
-    private List<Cities> cities;
+    private Cities cities;
     private List<Films> films;
 
-    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, List<Cities> cities, List<Films> films) {
+    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, Cities cities) {
         this.cinema_id = cinema_id;
         this.ciname_name = ciname_name;
         this.ciname_address = ciname_address;
         this.cities = cities;
-        this.films = films;
     }
 
     public Cinemas() {
@@ -47,11 +46,11 @@ public class Cinemas {
         this.ciname_address = ciname_address;
     }
 
-    public List<Cities> getCities() {
+    public Cities getCities() {
         return cities;
     }
 
-    public void setCities(List<Cities> cities) {
+    public void setCities(Cities cities) {
         this.cities = cities;
     }
 

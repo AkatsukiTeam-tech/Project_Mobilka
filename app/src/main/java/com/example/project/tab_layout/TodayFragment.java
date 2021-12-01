@@ -1,5 +1,9 @@
 package com.example.project.tab_layout;
 
+import static android.content.Context.WIFI_SERVICE;
+
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
@@ -15,14 +19,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import android.net.wifi.WifiManager;
+import android.text.format.Formatter;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activities.DetailsFilmActivity;
+import com.example.project.Entities.Cinemas;
+import com.example.project.Entities.Cities;
+import com.example.project.Entities.Countries;
+import com.example.project.Entities.Directors;
 import com.example.project.Entities.Films;
+import com.example.project.Entities.Genres;
 import com.example.project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +46,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +67,8 @@ public class TodayFragment extends Fragment {
     public TodayFragment() {
     }
 
-    public static TodayFragment  newInstance(String param1, String param2) {
-        TodayFragment  fragment = new TodayFragment ();
+    public static TodayFragment newInstance(String param1, String param2) {
+        TodayFragment fragment = new TodayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,68 +93,17 @@ public class TodayFragment extends Fragment {
 
         int total = 9;
         int column = 3;
-        int row = total/column;
+        int row = total / column;
 
         GridLayout grid = view.findViewById(R.id.grid);
         grid.setColumnCount(column);
         grid.setRowCount(row + 1);
 
-        URL url = null;
-        BufferedReader reader = null;
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+        List<Films> films = HttpRequest();
 
-            //ip ---------------------------------------------
-            url = new URL("http://:8080/api/allFilms");
-            HttpURLConnection connection = null;
-            try {
-                connection = (HttpURLConnection)url.openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            connection.setRequestMethod("GET");
-            connection.connect();
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                // все ок
-                InputStream inputStream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
-
-                while ((line = reader.readLine())!= null){
-                    buffer.append(line);
-                }
-                try {
-
-                    Type listType = new TypeToken<ArrayList<Films>>(){}.getType();
-                    List<Films> items = gson.fromJson(String.valueOf(buffer), listType);
-                    String film_name = items.get(0).getFilm_name();
-                    System.out.println("----------------------------------------------\n");
-                    System.out.println("Item: " + film_name);
-                    System.out.println("\n----------------------------------------------");
-
-                } catch (Throwable t) {
-                    System.out.println("///////////////////////////////////////////////////////////////");
-                    Log.e("My App", "Could not parse malformed JSON: \"" + buffer + "\"");
-                }
-            } else {
-                // ошибка
-                System.out.println("########    ######       ######         ######      ######");
-                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
-                System.out.println("########    ######       ######       ##      ##    ######");
-                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
-                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0, c = 0, r = 0; i < total; i++, c++){
-            if (c == column){
+        for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
+            if (c == column) {
                 c = 0;
                 r++;
             }
@@ -164,10 +131,11 @@ public class TodayFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class);
+                    intent.putExtra("films",films.get(0));
                     startActivity(intent);
                 }
             });
-            params_layout.gravity = Gravity.CLIP_HORIZONTAL|Gravity.CENTER_HORIZONTAL;
+            params_layout.gravity = Gravity.CLIP_HORIZONTAL | Gravity.CENTER_HORIZONTAL;
 
             ImageView image = new ImageView(this.getContext());
             image.setImageResource(R.drawable.venom2);
@@ -184,7 +152,7 @@ public class TodayFragment extends Fragment {
 
             LinearLayout.LayoutParams params_image = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_image.gravity = Gravity.CENTER;
-            params_image.setMargins(0,0,0,20);
+            params_image.setMargins(0, 0, 0, 20);
 
             LinearLayout.LayoutParams params_text = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_text.gravity = Gravity.CENTER;
@@ -198,4 +166,134 @@ public class TodayFragment extends Fragment {
         }
         return view;
     }
+
+    public static List<Films> HttpRequest() {
+
+        URL url = null;
+        BufferedReader reader = null;
+        List<Films> films = new ArrayList<>();
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            //ip ---------------------------------------------
+            url = new URL("http://192.168.1.212:8080/api/allFilms");
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // все ок
+                InputStream inputStream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
+                System.out.println(buffer);
+                JSONArray jsonarray = new JSONArray(String.valueOf(buffer));
+
+                Long id = null;
+                String name = null;
+                String duration = null;
+                String date = null;
+                List<Countries> countries = new ArrayList<>();
+                List<Directors> directors = new ArrayList<>();
+                List<Genres> genres = new ArrayList<>();
+
+                JSONArray countries_json = null;
+                Long country_id = null;
+                String country_name = null;
+
+                JSONArray directors_json = null;
+                Long director_id = null;
+                String full_name = null;
+
+                JSONArray genre_json = null;
+                Long genre_id = null;
+                String genre_name = null;
+
+                JSONObject cinema_json = null;
+                Long cinema_id = null;
+                String ciname_name = null;
+                String ciname_address = null;
+
+                JSONObject cities_json = null;
+                Long city_id = null;
+                String city_name = null;
+
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject object = jsonarray.getJSONObject(i);
+
+                    id = object.getLong("film_id");
+                    name = object.getString("film_name");
+                    duration = object.getString("film_duration");
+                    date = object.getString("film_date");
+
+                    countries_json = object.optJSONArray("countries");
+                    for (int l = 0; l < countries_json.length(); l++) {
+                        JSONObject country = countries_json.getJSONObject(l);
+                        country_id = country.getLong("country_id");
+                        System.out.println("country_id: " + country_id);
+                        country_name = country.getString("country_name");
+                        countries.add(new Countries(country_id, country_name));
+                    }
+
+                    directors_json = object.optJSONArray("directors");
+                    for (int j = 0; j < directors_json.length(); j++) {
+                        JSONObject director = directors_json.getJSONObject(j);
+                        director_id = director.getLong("director_id");
+                        full_name = director.getString("full_name");
+                        directors.add(new Directors(director_id, full_name));
+                    }
+
+                    genre_json = object.optJSONArray("genres");
+                    for (int j = 0; j < genre_json.length(); j++) {
+                        JSONObject genre = genre_json.getJSONObject(j);
+                        genre_id = genre.getLong("genre_id");
+                        genre_name = genre.getString("genre_name");
+                        genres.add(new Genres(genre_id, genre_name));
+                    }
+
+                    cinema_json = object.optJSONObject("cinema");
+                    cinema_id = cinema_json.getLong("cinema_id");
+                    ciname_name = cinema_json.getString("cinema_name");
+                    ciname_address = cinema_json.getString("cinema_address");
+
+                    Cities city_entity = null;
+                        cities_json = cinema_json.optJSONObject("city");
+                        city_id = cities_json.getLong("city_id");
+                        city_name = cities_json.getString("city_name");
+                        city_entity = new Cities(city_id, city_name);
+                    Cinemas cinema = new Cinemas(cinema_id, ciname_name, ciname_address, city_entity);
+
+                    films.add(new Films(id,name, Time.valueOf(duration), Date.valueOf(date),countries,directors,genres,cinema));
+                }
+
+                System.out.println("Films: " + films.get(0).getFilm_name());
+
+
+            } else {
+                // ошибка
+                System.out.println("########    ######       ######         ######      ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ######       ######       ##      ##    ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return films;
+    }
+
 }

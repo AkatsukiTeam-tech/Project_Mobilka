@@ -1,7 +1,7 @@
 package com.example.project.Entities;
 import java.io.Serializable;
 
-public class Directors {
+public class Directors implements Serializable {
 
     private Long director_id;
     private String full_name;

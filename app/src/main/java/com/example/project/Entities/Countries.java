@@ -3,7 +3,7 @@ package com.example.project.Entities;
 import java.io.Serializable;
 
 
-public class Countries {
+public class Countries implements Serializable{
 
     private Long country_id;
 
