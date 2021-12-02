@@ -122,7 +122,7 @@ public class TodayFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class);
-                    //intent.putExtra("films", films.get(finalI));
+                            //.putExtra("films", films.get(finalI));
                     startActivity(intent);
                 }
             });
@@ -132,12 +132,12 @@ public class TodayFragment extends Fragment {
             image.setImageResource(R.drawable.venom2);
 
             TextView text_name = new TextView(this.getContext());
-            text_name.setText("Venom 2");
+            text_name.setText(films.get(finalI).getFilm_ru_name());
             text_name.setTextSize(12);
             text_name.setTextColor(getResources().getColor(R.color.text_white));
 
             TextView text_genre = new TextView(this.getContext());
-            text_genre.setText("horror");
+            text_genre.setText(films.get(finalI).getGenres().get(0).getGenre_name());
             text_genre.setTextSize(10);
             text_genre.setTextColor(getResources().getColor(R.color.text_gray));
 
@@ -168,7 +168,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://:8080/api/allFilms");
+            url = new URL("http://192.168.137.1:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
