@@ -10,14 +10,12 @@ public class Cinemas {
     private String ciname_name;
     private String ciname_address;
     private List<Cities> cities;
-    private List<Films> films;
 
-    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, List<Cities> cities, List<Films> films) {
+    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, List<Cities> cities) {
         this.cinema_id = cinema_id;
         this.ciname_name = ciname_name;
         this.ciname_address = ciname_address;
         this.cities = cities;
-        this.films = films;
     }
 
     public Cinemas() {
@@ -53,13 +51,5 @@ public class Cinemas {
 
     public void setCities(List<Cities> cities) {
         this.cities = cities;
-    }
-
-    public List<Films> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<Films> films) {
-        this.films = films;
     }
 }
