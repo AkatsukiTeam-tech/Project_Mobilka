@@ -168,7 +168,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://192.168.137.1:8080/api/allFilms");
+            url = new URL("http://:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -192,14 +192,14 @@ public class TodayFragment extends Fragment {
                 System.out.println(buffer);
                 JSONArray jsonarray = new JSONArray(String.valueOf(buffer));
 
-                Long id = null;
-                String ru_name = null;
-                String orig_name = null;
-                String image_url = null;
-                String description = null;
-                int restriction = Integer.parseInt(null);
-                String duration = null;
-                String date = null;
+                Long id;
+                String ru_name;
+                String orig_name;
+                String image_url;
+                String description;
+                int restriction;
+                String duration;
+                String date;
                 List<Countries> countries = new ArrayList<>();
                 List<Directors> directors = new ArrayList<>();
                 List<Genres> genres = new ArrayList<>();
@@ -279,8 +279,6 @@ public class TodayFragment extends Fragment {
 
                     films.add(new Films(id, ru_name, orig_name, image_url, description, restriction, Time.valueOf(duration), Date.valueOf(date), countries, directors, genres, cinemas));
                 }
-
-                System.out.println("Films: " + films.get(0).getFilm_ru_name());
 
 
             } else {
