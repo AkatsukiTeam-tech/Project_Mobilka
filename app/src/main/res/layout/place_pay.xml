@@ -73,48 +73,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp">
         </TableLayout>
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_gray"
-                    android:text="1"
-                    android:fontFamily="@font/roboto_medium"/>
-                <HorizontalScrollView
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/armchair" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="1"
-                            android:textColor="@color/text_white"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:layout_constraintStart_toStartOf="@+id/imageView6" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </HorizontalScrollView>
-            </LinearLayout>
-        </LinearLayout>-->
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -126,6 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu"
+        app:itemIconTint="@color/tab_color"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,10 +9,9 @@ public class Cinemas implements Serializable {
     private Long cinema_id;
     private String ciname_name;
     private String ciname_address;
-    private Cities cities;
-    private List<Films> films;
+    private List<Cities> cities;
 
-    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, Cities cities) {
+    public Cinemas(Long cinema_id, String ciname_name, String ciname_address, List<Cities> cities) {
         this.cinema_id = cinema_id;
         this.ciname_name = ciname_name;
         this.ciname_address = ciname_address;
@@ -46,19 +45,11 @@ public class Cinemas implements Serializable {
         this.ciname_address = ciname_address;
     }
 
-    public Cities getCities() {
+    public List<Cities> getCities() {
         return cities;
     }
 
-    public void setCities(Cities cities) {
+    public void setCities(List<Cities> cities) {
         this.cities = cities;
-    }
-
-    public List<Films> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<Films> films) {
-        this.films = films;
     }
 }

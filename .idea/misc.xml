@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/activity_details_film.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/activity_main.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_notificatons.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_today.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/object_7.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/place_pay.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/activity_details_film.xml" value="0.33" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_all.xml" value="0.209375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_anonce.xml" value="0.209375" />

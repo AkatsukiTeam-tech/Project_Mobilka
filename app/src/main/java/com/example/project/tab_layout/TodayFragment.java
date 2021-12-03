@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activities.DetailsFilmActivity;
 import com.example.project.Entities.Cinemas;
-import com.example.project.Entities.Cities;
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Directors;
 import com.example.project.Entities.Films;
@@ -46,7 +45,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
@@ -67,8 +65,8 @@ public class TodayFragment extends Fragment {
     public TodayFragment() {
     }
 
-    public static TodayFragment newInstance(String param1, String param2) {
-        TodayFragment fragment = new TodayFragment();
+    public static TodayFragment  newInstance(String param1, String param2) {
+        TodayFragment  fragment = new TodayFragment ();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -91,19 +89,17 @@ public class TodayFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_today, container, false);
 
-        int total = 9;
+        List<Films> films = HttpRequest();
+        int total = films.size();
         int column = 3;
-        int row = total / column;
+        int row = total/column;
 
         GridLayout grid = view.findViewById(R.id.grid);
         grid.setColumnCount(column);
         grid.setRowCount(row + 1);
 
-        List<Films> films = HttpRequest();
-
-
-        for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
-            if (c == column) {
+        for (int i = 0, c = 0, r = 0; i < total; i++, c++){
+            if (c == column){
                 c = 0;
                 r++;
             }
@@ -127,32 +123,33 @@ public class TodayFragment extends Fragment {
             LinearLayout layout = new LinearLayout(this.getContext());
             LinearLayout.LayoutParams params_layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layout.setOrientation(LinearLayout.VERTICAL);
+            int finalI = i;
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class);
-                    intent.putExtra("films",films.get(0));
+                            //.putExtra("films", films.get(finalI));
                     startActivity(intent);
                 }
             });
-            params_layout.gravity = Gravity.CLIP_HORIZONTAL | Gravity.CENTER_HORIZONTAL;
+            params_layout.gravity = Gravity.CLIP_HORIZONTAL|Gravity.CENTER_HORIZONTAL;
 
             ImageView image = new ImageView(this.getContext());
             image.setImageResource(R.drawable.venom2);
 
             TextView text_name = new TextView(this.getContext());
-            text_name.setText("Venom 2");
+            text_name.setText(films.get(finalI).getFilm_ru_name());
             text_name.setTextSize(12);
             text_name.setTextColor(getResources().getColor(R.color.text_white));
 
             TextView text_genre = new TextView(this.getContext());
-            text_genre.setText("horror");
+            text_genre.setText(films.get(finalI).getGenres().get(0).getGenre_name());
             text_genre.setTextSize(10);
             text_genre.setTextColor(getResources().getColor(R.color.text_gray));
 
             LinearLayout.LayoutParams params_image = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_image.gravity = Gravity.CENTER;
-            params_image.setMargins(0, 0, 0, 20);
+            params_image.setMargins(0,0,0,20);
 
             LinearLayout.LayoutParams params_text = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_text.gravity = Gravity.CENTER;
@@ -177,7 +174,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://192.168.1.212:8080/api/allFilms");
+            url = new URL("http://192.168.137.1:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -201,13 +198,18 @@ public class TodayFragment extends Fragment {
                 System.out.println(buffer);
                 JSONArray jsonarray = new JSONArray(String.valueOf(buffer));
 
-                Long id = null;
-                String name = null;
-                String duration = null;
-                String date = null;
+                Long id;
+                String ru_name;
+                String orig_name;
+                String image_url;
+                String description;
+                int restriction;
+                String duration;
+                String date;
                 List<Countries> countries = new ArrayList<>();
                 List<Directors> directors = new ArrayList<>();
                 List<Genres> genres = new ArrayList<>();
+                List<Cinemas> cinemas = new ArrayList<>();
 
                 JSONArray countries_json = null;
                 Long country_id = null;
@@ -221,12 +223,12 @@ public class TodayFragment extends Fragment {
                 Long genre_id = null;
                 String genre_name = null;
 
-                JSONObject cinema_json = null;
+                JSONArray cinema_json = null;
                 Long cinema_id = null;
                 String ciname_name = null;
                 String ciname_address = null;
 
-                JSONObject cities_json = null;
+                JSONArray cities_json = null;
                 Long city_id = null;
                 String city_name = null;
 
@@ -234,7 +236,11 @@ public class TodayFragment extends Fragment {
                     JSONObject object = jsonarray.getJSONObject(i);
 
                     id = object.getLong("film_id");
-                    name = object.getString("film_name");
+                    ru_name = object.getString("film_ru_name");
+                    orig_name = object.getString("film_orig_name");
+                    description = object.getString("description");
+                    image_url = object.getString("image_url");
+                    restriction = object.getInt("restriction");
                     duration = object.getString("film_duration");
                     date = object.getString("film_date");
 
@@ -263,22 +269,22 @@ public class TodayFragment extends Fragment {
                         genres.add(new Genres(genre_id, genre_name));
                     }
 
-                    cinema_json = object.optJSONObject("cinema");
-                    cinema_id = cinema_json.getLong("cinema_id");
-                    ciname_name = cinema_json.getString("cinema_name");
-                    ciname_address = cinema_json.getString("cinema_address");
+                    cinema_json = object.optJSONArray("cinema");
+                    for (int j = 0; j < cinema_json.length(); j++) {
+                        JSONObject cinema = cinema_json.getJSONObject(j);
+                        cinema_id = cinema.getLong("cinema_id");
+                        ciname_name = cinema.getString("cinema_name");
+                        ciname_address = cinema.getString("cinema_address");
+                    }
+//                    Cities city_entity = null;
+//                        cities_json = cinema_json.optJSONArray(0);
+//                        city_id = cities_json.getLong("city_id");
+//                        city_name = cities_json.getString("city_name");
+//                        city_entity = new Cities(city_id, city_name);
+//                    Cinemas cinema = new Cinemas(cinema_id, ciname_name, ciname_address, city_entity);
 
-                    Cities city_entity = null;
-                        cities_json = cinema_json.optJSONObject("city");
-                        city_id = cities_json.getLong("city_id");
-                        city_name = cities_json.getString("city_name");
-                        city_entity = new Cities(city_id, city_name);
-                    Cinemas cinema = new Cinemas(cinema_id, ciname_name, ciname_address, city_entity);
-
-                    films.add(new Films(id,name, Time.valueOf(duration), Date.valueOf(date),countries,directors,genres,cinema));
+                    films.add(new Films(id, ru_name, orig_name, image_url, description, restriction, Time.valueOf(duration), Date.valueOf(date), countries, directors, genres, cinemas));
                 }
-
-                System.out.println("Films: " + films.get(0).getFilm_name());
 
 
             } else {
@@ -295,5 +301,4 @@ public class TodayFragment extends Fragment {
 
         return films;
     }
-
 }
