@@ -5,6 +5,8 @@ import static android.content.Context.WIFI_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -127,15 +129,26 @@ public class TodayFragment extends Fragment {
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class);
-                            //.putExtra("films", films.get(finalI));
+                    Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class)
+                            .putExtra("films", films.get(finalI));
                     startActivity(intent);
                 }
             });
             params_layout.gravity = Gravity.CLIP_HORIZONTAL|Gravity.CENTER_HORIZONTAL;
 
+            URL url = null;
+            Bitmap bmp = null;
+            try {
+                url = new URL(films.get(finalI).getImage_url());
+                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             ImageView image = new ImageView(this.getContext());
-            image.setImageResource(R.drawable.venom2);
+            image.setImageBitmap(bmp);
 
             TextView text_name = new TextView(this.getContext());
             text_name.setText(films.get(finalI).getFilm_ru_name());
@@ -143,12 +156,14 @@ public class TodayFragment extends Fragment {
             text_name.setTextColor(getResources().getColor(R.color.text_white));
 
             TextView text_genre = new TextView(this.getContext());
-            text_genre.setText(films.get(finalI).getGenres().get(0).getGenre_name());
+            text_genre.setText(films.get(finalI).getGenres().get(finalI).getGenre_name());
             text_genre.setTextSize(10);
             text_genre.setTextColor(getResources().getColor(R.color.text_gray));
 
             LinearLayout.LayoutParams params_image = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_image.gravity = Gravity.CENTER;
+            params_image.width = 224;
+            params_image.height = 336;
             params_image.setMargins(0,0,0,20);
 
             LinearLayout.LayoutParams params_text = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -174,7 +189,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://192.168.137.1:8080/api/allFilms");
+            url = new URL("http://10.10.17.195:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -268,20 +283,6 @@ public class TodayFragment extends Fragment {
                         genre_name = genre.getString("genre_name");
                         genres.add(new Genres(genre_id, genre_name));
                     }
-
-                    cinema_json = object.optJSONArray("cinema");
-                    for (int j = 0; j < cinema_json.length(); j++) {
-                        JSONObject cinema = cinema_json.getJSONObject(j);
-                        cinema_id = cinema.getLong("cinema_id");
-                        ciname_name = cinema.getString("cinema_name");
-                        ciname_address = cinema.getString("cinema_address");
-                    }
-//                    Cities city_entity = null;
-//                        cities_json = cinema_json.optJSONArray(0);
-//                        city_id = cities_json.getLong("city_id");
-//                        city_name = cities_json.getString("city_name");
-//                        city_entity = new Cities(city_id, city_name);
-//                    Cinemas cinema = new Cinemas(cinema_id, ciname_name, ciname_address, city_entity);
 
                     films.add(new Films(id, ru_name, orig_name, image_url, description, restriction, Time.valueOf(duration), Date.valueOf(date), countries, directors, genres, cinemas));
                 }

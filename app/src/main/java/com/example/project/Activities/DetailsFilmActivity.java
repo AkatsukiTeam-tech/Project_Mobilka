@@ -3,12 +3,17 @@ package com.example.project.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
 import com.example.project.ExpandableTextView;
@@ -26,7 +31,9 @@ import java.net.URL;
 public class DetailsFilmActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    TextView detailsFilm,textGenreView,textDirectorView,textDurationView,textCountryView;
+    TextView detailsFilm, orig_name, limit_of_age,
+            textGenreView, textDirectorView, textDurationView, textCountryView;
+    ImageView image, back_film;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +42,50 @@ public class DetailsFilmActivity extends AppCompatActivity {
         Films films = (Films) getIntent().getSerializableExtra("films");
 
         detailsFilm = findViewById(R.id.detailsFilm);
-        detailsFilm.setText(films.getFilm_name());
+        orig_name = findViewById(R.id.orig_name);
+        limit_of_age = findViewById(R.id.limit_of_age);
+
+        limit_of_age.setText(String.valueOf(films.getRestriction()) + "+");
+        orig_name.setText(films.getFilm_orig_name());
+        detailsFilm.setText(films.getFilm_ru_name());
 
         textCountryView = findViewById(R.id.textView);
         textDirectorView = findViewById(R.id.textView2);
         textGenreView = findViewById(R.id.film_genre);
         textDurationView = findViewById(R.id.textView3);
 
-        textCountryView.setText(films.getCinemas().getCities().getCity_name());
+        image = findViewById(R.id.image);
+        back_film = findViewById(R.id.back_film);
+
+        String countries = "";
+        for (Countries country : films.getCountries()){
+            countries += country.getCountry_name() + ", ";
+        }
+
+        URL url = null;
+        Bitmap bmp = null;
+        try {
+            url = new URL(films.getImage_url());
+            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        image.setImageBitmap(bmp);
+        textCountryView.setText(countries.substring(0, countries.length()-2));
         textDirectorView.setText(films.getDirectors().get(0).getFull_name());
-        textDurationView.setText(films.getFilm_date().toString());
+        textDurationView.setText(films.getFilm_duration().toString());
+
         String genres = "";
         for(Genres g:films.getGenres()){
-            genres = g.getGenre_name() + genres + "; ";
+            genres += g.getGenre_name() + ", ";
         }
-        textGenreView.setText(genres);
+        textGenreView.setText(genres.substring(0, genres.length()-2));
 
         ExpandableTextView textView = findViewById(R.id.tv_text);
-        textView.setText("Java - это объектно-ориентированный язык программирования, " +
-                "который не только поглощает Различные преимущества языка C ++ также " +
-                "отказываются от концепций множественного наследования и указателей, " +
-                "которые трудно понять в C++ Поэтому язык Java имеет две особенности: " +
-                "мощный и простой в использовании. Язык Java как представитель статического " +
-                "объектно-ориентированного языка программирования Отличная реализация " +
-                "объектно-ориентированной теории, позволяющая программистам выполнять " +
-                "сложное программирование элегантным образом мышления.");
+        textView.setText(films.getDescription());
 
         MaterialButton buy = findViewById(R.id.buy);
         buy.setOnClickListener(new View.OnClickListener() {
@@ -96,35 +122,5 @@ public class DetailsFilmActivity extends AppCompatActivity {
 
             return true;
         });
-    }
-
-    private Films getFilmFromRequest() {
-
-        URL url = null;
-        BufferedReader reader = null;
-
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
-            //ip ---------------------------------------------
-            //url = new URL("http://192.168.1.212:8080/api/getFilm/"+);
-            HttpURLConnection connection = null;
-            try {
-                connection = (HttpURLConnection) url.openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            connection.setRequestMethod("GET");
-            connection.connect();
-
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

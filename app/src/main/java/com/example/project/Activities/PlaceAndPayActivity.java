@@ -53,6 +53,8 @@ public class PlaceAndPayActivity extends AppCompatActivity {
                 textView.setTextSize(10);
 
 
+
+
                 tableRow.addView(textView, j);
             }
             tableLayout.addView(tableRow, i);
