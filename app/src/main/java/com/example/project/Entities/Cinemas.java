@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class Cinemas {
+public class Cinemas implements Serializable {
 
     private Long cinema_id;
     private String ciname_name;

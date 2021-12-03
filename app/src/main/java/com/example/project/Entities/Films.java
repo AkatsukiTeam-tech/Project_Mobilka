@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-public class Films {
+public class Films implements Serializable {
     private Long film_id;
     private String film_ru_name;
     private String film_orig_name;

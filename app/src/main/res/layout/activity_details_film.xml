@@ -43,6 +43,7 @@
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/back_film">
                 <TextView
+                    android:id="@+id/detailsFilm"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:text="Оригинальное название"
+                        android:text="Оригинальн ое название"
                         android:textColor="@color/text_gray"
                         android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="parent"/>

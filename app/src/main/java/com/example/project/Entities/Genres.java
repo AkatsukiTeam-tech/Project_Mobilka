@@ -2,7 +2,7 @@ package com.example.project.Entities;
 
 import java.io.Serializable;
 
-public class Genres {
+public class Genres implements Serializable{
 
     private Long genre_id;
 
