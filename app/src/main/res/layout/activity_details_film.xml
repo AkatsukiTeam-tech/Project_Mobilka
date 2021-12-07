@@ -208,6 +208,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/genre" />
 
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtube_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:videoId="qzcGfN9S_QY"
+                app:showYouTubeButton="true"
+                app:autoPlay="true"
+                app:layout_constraintTop_toBottomOf="@+id/genre">
+
+            </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
             <TextView
                 android:id="@+id/aboutFilm"
                 android:layout_width="wrap_content"
@@ -220,7 +233,9 @@
                 android:textColor="@color/text_red"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/film_genre" />
+                app:layout_constraintTop_toBottomOf="@+id/youtube_id" />
+
+
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -316,7 +331,9 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 
     <ImageButton
