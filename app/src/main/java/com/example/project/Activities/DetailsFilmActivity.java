@@ -1,17 +1,15 @@
 package com.example.project.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
@@ -21,11 +19,8 @@ import com.example.project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class DetailsFilmActivity extends AppCompatActivity {
@@ -55,7 +50,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
         textDurationView = findViewById(R.id.textView3);
 
         image = findViewById(R.id.image);
-        back_film = findViewById(R.id.back_film);
+        //back_film = findViewById(R.id.back_film);
 
         String countries = "";
         for (Countries country : films.getCountries()){

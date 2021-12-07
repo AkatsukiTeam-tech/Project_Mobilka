@@ -1,6 +1,5 @@
 package com.example.project.bottom_menu;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,10 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
-import com.example.project.NotificationService;
+import com.example.project.Activities.MainActivity;
+import com.example.project.ExampleService;
 import com.example.project.R;
 
 public class NotificationsFragment extends Fragment {
@@ -21,8 +19,6 @@ public class NotificationsFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private Switch notifSwitch;
-    private View view;
 
     public NotificationsFragment() {
     }
@@ -43,40 +39,12 @@ public class NotificationsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_notificatons, container, false);
-
-        notifSwitch = view.findViewById(R.id.notif_switch);
-
-        notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    startService(view);
-                } else {
-                    // The toggle is disabled
-                }
-            }
-        });
-        return view;
-    }
-
-    public void startService(View v){
-        String message = "Welcome";
-        Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
-        serviceIntent.putExtra("message",message);
-
-        getActivity().startService(serviceIntent);
-    }
-
-    public void stopService(View v){
-        Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
-        getActivity().stopService(serviceIntent);
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_notificatons, container, false);
     }
 }

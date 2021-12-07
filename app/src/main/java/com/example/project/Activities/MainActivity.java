@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.project.Entities.Cadres;
+import com.example.project.ExampleService;
 import com.example.project.R;
 import com.example.project.bottom_menu.HomeFragment;
 import com.example.project.bottom_menu.NotificationsFragment;
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+    }
 
-
+    public void startService(View view) {
+        Intent serviceIntent = new Intent(this, ExampleService.class);
     }
 }

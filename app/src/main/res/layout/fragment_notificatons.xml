@@ -82,13 +82,13 @@
         </LinearLayout>
 
         <Switch
-            android:id="@+id/notif_switch"
+            android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:thumbTint="@color/switch_thumb_selector"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:trackTint="@color/switch_track_selector"
+            android:thumbTint="@color/switch_thumb_selector"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout3"

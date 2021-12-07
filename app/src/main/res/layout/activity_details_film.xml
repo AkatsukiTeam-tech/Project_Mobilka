@@ -18,64 +18,164 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/back_film"
-                android:layout_width="wrap_content"
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtube_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/back_film" />
+                app:autoPlay="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:videoId="TP0QN5aJ_ZI">
+
+            </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="194dp"
-                android:layout_height="279dp"
-                android:layout_marginTop="104dp"
-                app:layout_constraintBottom_toBottomOf="@+id/back_film"
-                app:layout_constraintEnd_toEndOf="@+id/back_film"
+                android:layout_width="128dp"
+                android:layout_height="192dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/youtube_id"
                 app:srcCompat="@drawable/film" />
 
             <LinearLayout
                 android:id="@+id/name_info"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/back_film">
+                android:layout_marginStart="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image">
+
                 <TextView
                     android:id="@+id/detailsFilm"
-                    android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Название фильма"
                     android:textColor="@color/text_red"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/orig_name"
-                        android:fontFamily="@font/roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="Оригинальн ое название"
                         android:textColor="@color/text_gray"
                         android:textSize="12dp"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent" />
+
                     <TextView
                         android:id="@+id/limit_of_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:background="@drawable/limit_of_age"
-                        android:text="16+"
                         android:fontFamily="@font/roboto_medium"
-                        android:textSize="10dp"
+                        android:text="16+"
                         android:textColor="@color/background"
+                        android:textSize="10dp"
                         tools:layout_editor_absoluteY="416dp" />
                 </LinearLayout>
+                <TableLayout
+                    android:id="@+id/genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toEndOf="@+id/image"
+                    app:layout_constraintTop_toBottomOf="@+id/name_info">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            app:srcCompat="@drawable/ic_baseline_language_24" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:paddingStart="10dip"
+                            android:text="Страна, год"
+                            android:textColor="@color/text_white"
+                            android:textSize="12dp"
+                            tools:ignore="RtlSymmetry" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:padding="1dip"
+                            app:srcCompat="@drawable/clapperboard" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:paddingStart="10dip"
+                            android:text="Режиссер"
+                            android:textColor="@color/text_white"
+                            android:textSize="12dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="6dp"
+                            android:layout_height="match_parent"
+
+                            app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:paddingStart="10dip"
+                            android:text="Продолжительность"
+                            android:textColor="@color/text_white"
+                            android:textSize="12dp" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/film_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/genre"
+                    android:textColor="@color/text_white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.096"
+                    app:layout_constraintStart_toEndOf="@+id/image"
+                    app:layout_constraintTop_toBottomOf="@+id/genre" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,12 +184,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
                 android:orientation="horizontal"
                 app:flow_horizontalAlign="center"
                 app:flow_verticalAlign="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_info">
+                app:layout_constraintTop_toBottomOf="@+id/image">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buy"
@@ -113,129 +214,19 @@
 
             </LinearLayout>
 
-            <TableLayout
-                android:id="@+id/genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buy_notif">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        app:srcCompat="@drawable/ic_baseline_language_24" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingStart="10dip"
-                        android:text="Страна, год"
-                        android:textColor="@color/text_white"
-                        android:textSize="12dp"
-                        tools:ignore="RtlSymmetry" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:padding="1dip"
-                        app:srcCompat="@drawable/clapperboard" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingStart="10dip"
-                        android:text="Режиссер"
-                        android:textColor="@color/text_white"
-                        android:textSize="12dp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="6dp"
-                        android:layout_height="match_parent"
-
-                        app:srcCompat="@drawable/ic_baseline_access_time_24" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingStart="10dip"
-                        android:text="Продолжительность"
-                        android:textColor="@color/text_white"
-                        android:textSize="12dp" />
-                </TableRow>
-            </TableLayout>
-
-            <TextView
-                android:id="@+id/film_genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-
-                android:fontFamily="@font/roboto_light"
-                android:text="@string/genre"
-                android:textColor="@color/text_white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.096"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genre" />
-
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/youtube_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                app:videoId="qzcGfN9S_QY"
-                app:showYouTubeButton="true"
-                app:autoPlay="true"
-                app:layout_constraintTop_toBottomOf="@+id/genre">
-
-            </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
-
             <TextView
                 android:id="@+id/aboutFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/roboto_regular"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
                 android:text="О фильме"
                 android:textColor="@color/text_red"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/youtube_id" />
-
-
+                app:layout_constraintTop_toBottomOf="@+id/buy_notif" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -260,13 +251,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Кадры из фильма"
                 android:textColor="@color/text_red"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
             <HorizontalScrollView
@@ -295,7 +286,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:src="@drawable/cadr1" />
-
                     <ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="wrap_content"
@@ -303,7 +293,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:src="@drawable/cadr2" />
-
                     <ImageView
                         android:id="@+id/imageView20"
                         android:layout_width="wrap_content"
@@ -311,7 +300,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:src="@drawable/cadr3" />
-
                     <ImageView
                         android:id="@+id/imageView21"
                         android:layout_width="wrap_content"
@@ -319,7 +307,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:src="@drawable/cadr4" />
-
                     <ImageView
                         android:id="@+id/imageView22"
                         android:layout_width="wrap_content"
@@ -331,9 +318,7 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
-         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <ImageButton

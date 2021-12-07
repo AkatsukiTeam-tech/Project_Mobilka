@@ -5,7 +5,6 @@ import static com.example.project.R.drawable.armchair;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.PrecomputedText;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -51,6 +50,8 @@ public class PlaceAndPayActivity extends AppCompatActivity {
                 textView.setTextColor(getResources().getColor(R.color.text_white));
                 textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
                 textView.setTextSize(10);
+                textView.setLinksClickable(true);
+                
 
 
 
