@@ -1,30 +1,41 @@
 package com.example.project.Activities;
 
+import static com.example.project.tab_layout.TodayFragment.HttpRequest;
+
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.example.project.CustomFontsLoader;
+import com.example.project.Entities.Cinemas;
+import com.example.project.Entities.Films;
 import com.example.project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilmSessionsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    TextView filmName;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -32,11 +43,18 @@ public class FilmSessionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_7);
 
+        List<Films> films = HttpRequest();
+
+        filmName =findViewById(R.id.film_name);
+        Films film = (Films) getIntent().getSerializableExtra("film");
+        filmName.setText(film.getFilm_orig_name());
+        List<Cinemas> cinemas =  HttpGetByCinemas();
         ImageView view = findViewById(R.id.back);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FilmSessionsActivity.this, DetailsFilmActivity.class);
+                intent.putExtra("films", film);
                 startActivity(intent);
             }
         });
@@ -62,7 +80,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
         int length = 12;
 
         LinearLayout list = findViewById(R.id.cinema_list);
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < film.getCinemas().size(); i++){
             LinearLayout session = new LinearLayout(this);
             LinearLayout.LayoutParams params_session = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_session.setMargins(0,0,0,10);
@@ -71,6 +89,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FilmSessionsActivity.this, PlaceAndPayActivity.class);
+                    intent.putExtra("filmsObject", film);
                     startActivity(intent);
                 }
             });
@@ -89,25 +108,25 @@ public class FilmSessionsActivity extends AppCompatActivity {
             TextView name = new TextView(this);
             //name.setTypeface(CustomFontsLoader.getTypeface(this, 2));
             name.setTextColor(getResources().getColor(R.color.text_white));
-            name.setText("Kinopark 6");
+            name.setText(cinemas.get(i).getCinema_name());
             name.setTextSize(16);
 
             TextView address = new TextView(this);
             //address.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             address.setTextColor(getResources().getColor(R.color.text_gray));
-            address.setText("address");
+            address.setText(cinemas.get(i).getCinema_address());
             address.setTextSize(10);
 
             TextView time = new TextView(this);
             //time.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             time.setTextColor(getResources().getColor(R.color.text_white));
-            time.setText("16:00 - 18:00");
+            time.setText(film.getCinemas().get(i).getCinema_start_time() + " - " + film.getCinemas().get(i).getCinema_end_time());
             time.setTextSize(12);
 
             TextView price = new TextView(this);
             //price.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             price.setTextColor(getResources().getColor(R.color.text_white));
-            price.setText("1200 тг.");
+            price.setText(film.getCinemas().get(i).getCinema_price()+" tg");
             price.setTextSize(16);
 
             View divider = new View(this);
@@ -128,5 +147,52 @@ public class FilmSessionsActivity extends AppCompatActivity {
             list.addView(divider, params_divider);
 
         }
+    }
+
+    public List<Cinemas>  HttpGetByCinemas(){
+
+        URL url = null;
+        BufferedReader reader = null;
+        StringBuffer buffer = new StringBuffer();
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            //ip ---------------------------------------------
+            url = new URL("http://10.10.17.246:8080/api/allCinemas");
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // все ок
+                InputStream inputStream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line = "";
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
+                System.out.println(buffer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Gson gson = new Gson();
+        String jsonOutput = String.valueOf(buffer);
+        Type listType = new TypeToken<List<Cinemas>>(){}.getType();
+        List<Cinemas> cinemas = gson.fromJson(jsonOutput, listType);
+
+
+
+        return cinemas;
     }
 }

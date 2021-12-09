@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,17 +12,29 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
 import com.example.project.ExpandableTextView;
 import com.example.project.R;
+import com.example.project.bottom_menu.NotificationsFragment;
+import com.example.project.bottom_menu.ProfileFragment;
+import com.example.project.bottom_menu.PurchasesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class DetailsFilmActivity extends AppCompatActivity {
 
@@ -40,7 +53,10 @@ public class DetailsFilmActivity extends AppCompatActivity {
         orig_name = findViewById(R.id.orig_name);
         limit_of_age = findViewById(R.id.limit_of_age);
 
-        limit_of_age.setText(String.valueOf(films.getRestriction()) + "+");
+        if(films.getRestriction() == null){
+            films.setRestriction(0);
+        }
+        limit_of_age.setText(films.getRestriction() + "+");
         orig_name.setText(films.getFilm_orig_name());
         detailsFilm.setText(films.getFilm_ru_name());
 
@@ -87,6 +103,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailsFilmActivity.this, FilmSessionsActivity.class);
+                intent.putExtra("film",films);
                 startActivity(intent);
             }
         });
@@ -108,14 +125,21 @@ public class DetailsFilmActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.secondFragment:
+                    intent = new Intent(DetailsFilmActivity.this, NotificationsFragment.class);
+                    startActivity(intent);
                     break;
                 case R.id.thirdFragment:
+                    intent = new Intent(DetailsFilmActivity.this, PurchasesFragment.class);
+                    startActivity(intent);
                     break;
                 case R.id.forthFragment:
+                    intent = new Intent(DetailsFilmActivity.this, ProfileFragment.class);
+                    startActivity(intent);
                     break;
             }
 
             return true;
         });
     }
+
 }

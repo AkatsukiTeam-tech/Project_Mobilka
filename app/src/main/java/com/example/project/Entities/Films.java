@@ -11,17 +11,18 @@ public class Films implements Serializable {
     private String film_orig_name;
     private String image_url;
     private String description;
-    private int restriction;
-    private Time film_duration;
-    private Date film_date;
+    private Integer restriction;
+    private String film_duration;
+    private String film_date;
     private List<Countries> countries;
     private List<Directors> directors;
     private List<Genres> genres;
-    private List<Cinemas> cinemas;
+    private List<Cinemas> cinema;
+    private boolean announce;
 
     public Films(Long film_id, String film_ru_name, String film_orig_name, String image_url, String description,
-                 int restriction, Time film_duration, Date film_date, List<Countries> countries,
-                 List<Directors> directors, List<Genres> genres, List<Cinemas> cinemas) {
+                 int restriction, String film_duration, String film_date, List<Countries> countries,
+                 List<Directors> directors, List<Genres> genres, List<Cinemas> cinemas,boolean announce) {
         this.film_id = film_id;
         this.film_ru_name = film_ru_name;
         this.film_orig_name = film_orig_name;
@@ -33,10 +34,19 @@ public class Films implements Serializable {
         this.countries = countries;
         this.directors = directors;
         this.genres = genres;
-        this.cinemas = cinemas;
+        this.cinema = cinemas;
+        this.announce = announce;
     }
 
     public Films() {
+    }
+
+    public boolean isAnnounce() {
+        return announce;
+    }
+
+    public void setAnnounce(boolean announce) {
+        this.announce = announce;
     }
 
     public Long getFilm_id() {
@@ -79,7 +89,7 @@ public class Films implements Serializable {
         this.description = description;
     }
 
-    public int getRestriction() {
+    public Integer getRestriction() {
         return restriction;
     }
 
@@ -87,19 +97,19 @@ public class Films implements Serializable {
         this.restriction = restriction;
     }
 
-    public Time getFilm_duration() {
+    public String getFilm_duration() {
         return film_duration;
     }
 
-    public void setFilm_duration(Time film_duration) {
+    public void setFilm_duration(String film_duration) {
         this.film_duration = film_duration;
     }
 
-    public Date getFilm_date() {
+    public String getFilm_date() {
         return film_date;
     }
 
-    public void setFilm_date(Date film_date) {
+    public void setFilm_date(String film_date) {
         this.film_date = film_date;
     }
 
@@ -128,10 +138,10 @@ public class Films implements Serializable {
     }
 
     public List<Cinemas> getCinemas() {
-        return cinemas;
+        return cinema;
     }
 
     public void setCinemas(List<Cinemas> cinemas) {
-        this.cinemas = cinemas;
+        this.cinema = cinemas;
     }
 }

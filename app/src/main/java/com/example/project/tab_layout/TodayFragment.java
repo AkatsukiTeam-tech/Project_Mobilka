@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.StrictMode;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.example.project.Entities.Directors;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
 import com.example.project.R;
+import com.example.project.bottom_menu.NotificationsFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,9 +47,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
@@ -110,7 +115,7 @@ public class TodayFragment extends Fragment {
             GridLayout.LayoutParams params_card = new GridLayout.LayoutParams();
 
             params_card.height = GridLayout.LayoutParams.MATCH_PARENT;
-            params_card.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            params_card.width  = GridLayout.LayoutParams.WRAP_CONTENT;
             params_card.setGravity(Gravity.FILL);
             params_card.columnSpec = GridLayout.spec(c);
             params_card.rowSpec = GridLayout.spec(r);
@@ -153,10 +158,18 @@ public class TodayFragment extends Fragment {
             TextView text_name = new TextView(this.getContext());
             text_name.setText(films.get(finalI).getFilm_ru_name());
             text_name.setTextSize(12);
+            int maxLength = 5;
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(maxLength);
+            text_name.setFilters(fArray);
+            text_name.setMaxEms(5);
+
             text_name.setTextColor(getResources().getColor(R.color.text_white));
 
             TextView text_genre = new TextView(this.getContext());
-            text_genre.setText(films.get(finalI).getGenres().get(finalI).getGenre_name());
+            if(!films.get(finalI).getGenres().isEmpty()){
+                text_genre.setText(films.get(finalI).getGenres().get(0).getGenre_name());
+            }
             text_genre.setTextSize(10);
             text_genre.setTextColor(getResources().getColor(R.color.text_gray));
 
@@ -189,7 +202,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://10.10.17.195:8080/api/allFilms");
+            url = new URL("http://10.10.17.246:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -211,93 +224,16 @@ public class TodayFragment extends Fragment {
                     buffer.append(line).append("\n");
                 }
                 System.out.println(buffer);
-                JSONArray jsonarray = new JSONArray(String.valueOf(buffer));
-
-                Long id;
-                String ru_name;
-                String orig_name;
-                String image_url;
-                String description;
-                int restriction;
-                String duration;
-                String date;
-                List<Countries> countries = new ArrayList<>();
-                List<Directors> directors = new ArrayList<>();
-                List<Genres> genres = new ArrayList<>();
-                List<Cinemas> cinemas = new ArrayList<>();
-
-                JSONArray countries_json = null;
-                Long country_id = null;
-                String country_name = null;
-
-                JSONArray directors_json = null;
-                Long director_id = null;
-                String full_name = null;
-
-                JSONArray genre_json = null;
-                Long genre_id = null;
-                String genre_name = null;
-
-                JSONArray cinema_json = null;
-                Long cinema_id = null;
-                String ciname_name = null;
-                String ciname_address = null;
-
-                JSONArray cities_json = null;
-                Long city_id = null;
-                String city_name = null;
-
-                for (int i = 0; i < jsonarray.length(); i++) {
-                    JSONObject object = jsonarray.getJSONObject(i);
-
-                    id = object.getLong("film_id");
-                    ru_name = object.getString("film_ru_name");
-                    orig_name = object.getString("film_orig_name");
-                    description = object.getString("description");
-                    image_url = object.getString("image_url");
-                    restriction = object.getInt("restriction");
-                    duration = object.getString("film_duration");
-                    date = object.getString("film_date");
-
-                    countries_json = object.optJSONArray("countries");
-                    for (int l = 0; l < countries_json.length(); l++) {
-                        JSONObject country = countries_json.getJSONObject(l);
-                        country_id = country.getLong("country_id");
-                        System.out.println("country_id: " + country_id);
-                        country_name = country.getString("country_name");
-                        countries.add(new Countries(country_id, country_name));
-                    }
-
-                    directors_json = object.optJSONArray("directors");
-                    for (int j = 0; j < directors_json.length(); j++) {
-                        JSONObject director = directors_json.getJSONObject(j);
-                        director_id = director.getLong("director_id");
-                        full_name = director.getString("full_name");
-                        directors.add(new Directors(director_id, full_name));
-                    }
-
-                    genre_json = object.optJSONArray("genres");
-                    for (int j = 0; j < genre_json.length(); j++) {
-                        JSONObject genre = genre_json.getJSONObject(j);
-                        genre_id = genre.getLong("genre_id");
-                        genre_name = genre.getString("genre_name");
-                        genres.add(new Genres(genre_id, genre_name));
-                    }
-
-                    films.add(new Films(id, ru_name, orig_name, image_url, description, restriction, Time.valueOf(duration), Date.valueOf(date), countries, directors, genres, cinemas));
+                Gson gson = new Gson();
+                String jsonOutput = String.valueOf(buffer);
+                Type listType = new TypeToken<List<Films>>(){}.getType();
+                List<Films> filmsList = gson.fromJson(jsonOutput, listType);
+                films.addAll(filmsList);
                 }
 
 
-            } else {
-                // ошибка
-                System.out.println("########    ######       ######         ######      ######");
-                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
-                System.out.println("########    ######       ######       ##      ##    ######");
-                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
-                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
-            }
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            } catch (IOException protocolException) {
+            protocolException.printStackTrace();
         }
 
         return films;
