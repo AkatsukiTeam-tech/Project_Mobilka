@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
+import com.example.project.Entities.Sessions;
 import com.example.project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -43,12 +44,10 @@ public class FilmSessionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_7);
 
-        List<Films> films = HttpRequest();
-
         filmName =findViewById(R.id.film_name);
         Films film = (Films) getIntent().getSerializableExtra("film");
         filmName.setText(film.getFilm_orig_name());
-        List<Cinemas> cinemas =  HttpGetByCinemas();
+        List<Sessions> sessions =  HttpGetBySessions();
         ImageView view = findViewById(R.id.back);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,25 +107,25 @@ public class FilmSessionsActivity extends AppCompatActivity {
             TextView name = new TextView(this);
             //name.setTypeface(CustomFontsLoader.getTypeface(this, 2));
             name.setTextColor(getResources().getColor(R.color.text_white));
-            name.setText(cinemas.get(i).getCinema_name());
+            name.setText(sessions.get(i).getCinemas().getCinema_name());
             name.setTextSize(16);
 
             TextView address = new TextView(this);
             //address.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             address.setTextColor(getResources().getColor(R.color.text_gray));
-            address.setText(cinemas.get(i).getCinema_address());
+            address.setText(sessions.get(i).getCinemas().getCinema_address());
             address.setTextSize(10);
 
             TextView time = new TextView(this);
             //time.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             time.setTextColor(getResources().getColor(R.color.text_white));
-            time.setText(film.getCinemas().get(i).getCinema_start_time() + " - " + film.getCinemas().get(i).getCinema_end_time());
+            time.setText(sessions.get(i).getSession_start_time() + " - " + sessions.get(i).getSession_end_time());
             time.setTextSize(12);
 
             TextView price = new TextView(this);
             //price.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             price.setTextColor(getResources().getColor(R.color.text_white));
-            price.setText(film.getCinemas().get(i).getCinema_price()+" tg");
+            price.setText(sessions.get(i).getSession_price()+" tg");
             price.setTextSize(16);
 
             View divider = new View(this);
@@ -149,17 +148,17 @@ public class FilmSessionsActivity extends AppCompatActivity {
         }
     }
 
-    public List<Cinemas>  HttpGetByCinemas(){
+    public static List<Sessions> HttpGetBySessions() {
 
         URL url = null;
         BufferedReader reader = null;
-        StringBuffer buffer = new StringBuffer();
+        List<Sessions> sessions = new ArrayList<>();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://10.10.17.246:8080/api/allCinemas");
+            url = new URL("http://192.168.0.181:8080/api/allSessions");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -174,25 +173,35 @@ public class FilmSessionsActivity extends AppCompatActivity {
                 InputStream inputStream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
+                StringBuffer buffer = new StringBuffer();
                 String line = "";
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
                 System.out.println(buffer);
+                Gson gson = new Gson();
+                String jsonOutput = String.valueOf(buffer);
+                Type listType = new TypeToken<List<Films>>(){}.getType();
+                List<Sessions> sessionsList = gson.fromJson(jsonOutput, listType);
+                sessions.addAll(sessionsList);
+                System.out.println("----------------------------------------");
+
+            } else {
+                // ошибка
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("########    ######       ######         ######      ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ######       ######       ##      ##    ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+        } catch (IOException protocolException) {
+            protocolException.printStackTrace();
         }
 
-
-        Gson gson = new Gson();
-        String jsonOutput = String.valueOf(buffer);
-        Type listType = new TypeToken<List<Cinemas>>(){}.getType();
-        List<Cinemas> cinemas = gson.fromJson(jsonOutput, listType);
-
-
-
-        return cinemas;
+        return sessions;
     }
 }

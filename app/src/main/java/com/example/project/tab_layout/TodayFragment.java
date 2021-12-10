@@ -162,7 +162,8 @@ public class TodayFragment extends Fragment {
             InputFilter[] fArray = new InputFilter[1];
             fArray[0] = new InputFilter.LengthFilter(maxLength);
             text_name.setFilters(fArray);
-            text_name.setMaxEms(5);
+            text_name.setGravity(2);
+            text_name.setMaxEms(7);
 
             text_name.setTextColor(getResources().getColor(R.color.text_white));
 
@@ -202,7 +203,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://10.10.17.246:8080/api/allFilms");
+            url = new URL("http://192.168.0.181:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -229,7 +230,18 @@ public class TodayFragment extends Fragment {
                 Type listType = new TypeToken<List<Films>>(){}.getType();
                 List<Films> filmsList = gson.fromJson(jsonOutput, listType);
                 films.addAll(filmsList);
-                }
+                System.out.println("----------------------------------------");
+                System.out.println(films.get(0).getFilm_ru_name());
+
+            } else {
+                // ошибка
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("########    ######       ######         ######      ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ######       ######       ##      ##    ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
+            }
 
 
             } catch (IOException protocolException) {

@@ -1,5 +1,6 @@
 package com.example.project.bottom_menu;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 
 import com.example.project.R;
+
+import java.util.ArrayList;
 
 public class PurchasesFragment extends Fragment {
 
@@ -17,6 +21,9 @@ public class PurchasesFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private View view;
+    private ExpandableListView exListView;
 
     public PurchasesFragment() {
     }
@@ -42,7 +49,20 @@ public class PurchasesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_purchases, container, false);
+        view = inflater.inflate(R.layout.fragment_purchases, container, false);
+        exListView = view.findViewById(R.id.exListView);
+
+        ArrayList<ArrayList<String>> groups = new ArrayList<ArrayList<String>>();
+        ArrayList<String> children1 = new ArrayList<String>();
+        children1.add("Child_1");
+        children1.add("Child_2");
+        groups.add(children1);
+
+        //Создаем адаптер и передаем context и список с данными
+        Context context = getContext();
+        com.example.project.ExpandableListView adapter = new com.example.project.ExpandableListView(groups, context);
+        exListView.setAdapter(adapter);
+
+        return view;
     }
 }

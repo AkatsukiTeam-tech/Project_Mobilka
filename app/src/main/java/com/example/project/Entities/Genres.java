@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Genres implements Serializable{
 
     private Long genre_id;
-
     private String genre_name;
 
     public Genres(Long genre_id, String genre_name) {

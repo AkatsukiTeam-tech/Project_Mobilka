@@ -4,44 +4,31 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
-import com.example.project.ExpandableTextView;
-import com.example.project.R;
+import com.example.project.*;
 import com.example.project.bottom_menu.NotificationsFragment;
-import com.example.project.bottom_menu.ProfileFragment;
-import com.example.project.bottom_menu.PurchasesFragment;
+import com.example.project.bottom_menu.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.synnapps.carouselview.CarouselView;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class DetailsFilmActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     TextView detailsFilm, orig_name, limit_of_age,
             textGenreView, textDirectorView, textDurationView, textCountryView;
-    ImageView image, back_film;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +39,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
         detailsFilm = findViewById(R.id.detailsFilm);
         orig_name = findViewById(R.id.orig_name);
         limit_of_age = findViewById(R.id.limit_of_age);
+
 
         if(films.getRestriction() == null){
             films.setRestriction(0);
@@ -85,25 +73,29 @@ public class DetailsFilmActivity extends AppCompatActivity {
         }
 
         image.setImageBitmap(bmp);
-        textCountryView.setText(countries.substring(0, countries.length()-2));
-        textDirectorView.setText(films.getDirectors().get(0).getFull_name());
-        textDurationView.setText(films.getFilm_duration().toString());
 
         String genres = "";
         for(Genres g:films.getGenres()){
             genres += g.getGenre_name() + ", ";
         }
-        textGenreView.setText(genres.substring(0, genres.length()-2));
-
         ExpandableTextView textView = findViewById(R.id.tv_text);
-        textView.setText(films.getDescription());
+        try {
+            textGenreView.setText(genres.substring(0, genres.length()-2));
+            textCountryView.setText(countries.substring(0, countries.length()-2));
+            textDirectorView.setText(films.getDirectors().get(0).getFull_name());
+            textDurationView.setText(films.getFilm_duration().toString());
+            textView.setText(films.getDescription());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         MaterialButton buy = findViewById(R.id.buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailsFilmActivity.this, FilmSessionsActivity.class);
-                intent.putExtra("film",films);
+                intent.putExtra("film", films);
                 startActivity(intent);
             }
         });

@@ -8,6 +8,7 @@
     tools:context=".Activities.DetailsFilmActivity">
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -20,6 +21,7 @@
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_id"
+                android:layout_marginTop="56dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:autoPlay="false"
@@ -196,7 +198,7 @@
                     android:id="@+id/buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:backgroundTint="@color/text_white"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Купить билет"

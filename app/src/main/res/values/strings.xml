@@ -2,4 +2,5 @@
     <string name="app_name">Project</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="genre"><u>Жанр[0], Жанр[1], Жанр[2]</u></string>
+    <string name="my_purchases"><u>Мои покупки</u></string>
 </resources>
