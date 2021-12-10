@@ -4,24 +4,41 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
-import com.example.project.*;
+import com.example.project.Entities.Trailers;
+import com.example.project.ExpandableTextView;
+import com.example.project.R;
 import com.example.project.bottom_menu.NotificationsFragment;
-import com.example.project.bottom_menu.*;
+import com.example.project.bottom_menu.ProfileFragment;
+import com.example.project.bottom_menu.PurchasesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.synnapps.carouselview.CarouselView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsFilmActivity extends AppCompatActivity {
 
@@ -29,6 +46,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
     TextView detailsFilm, orig_name, limit_of_age,
             textGenreView, textDirectorView, textDurationView, textCountryView;
     ImageView image;
+    YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +54,20 @@ public class DetailsFilmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details_film);
         Films films = (Films) getIntent().getSerializableExtra("films");
 
+        List<Trailers> trailers = HttpGetByTrailers();
+
         detailsFilm = findViewById(R.id.detailsFilm);
         orig_name = findViewById(R.id.orig_name);
         limit_of_age = findViewById(R.id.limit_of_age);
+        youTubePlayerView = findViewById(R.id.youtube_id);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(YouTubePlayer youTubePlayer) {
+                String video_id = trailers.get(trailers.size() - 1).getTrailer_url();
+                youTubePlayer.loadVideo(video_id, 0);
+                youTubePlayer.pause();
+            }
+        });
 
 
         if(films.getRestriction() == null){
@@ -83,8 +112,9 @@ public class DetailsFilmActivity extends AppCompatActivity {
             textGenreView.setText(genres.substring(0, genres.length()-2));
             textCountryView.setText(countries.substring(0, countries.length()-2));
             textDirectorView.setText(films.getDirectors().get(0).getFull_name());
-            textDurationView.setText(films.getFilm_duration().toString());
+            textDurationView.setText(films.getFilm_duration());
             textView.setText(films.getDescription());
+            System.out.println(films.getDescription());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -132,6 +162,63 @@ public class DetailsFilmActivity extends AppCompatActivity {
 
             return true;
         });
+    }
+
+    public static List<Trailers> HttpGetByTrailers() {
+
+        URL url = null;
+        BufferedReader reader = null;
+        List<Trailers> trailers = new ArrayList<>();
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            //ip ---------------------------------------------
+            url = new URL("http://10.10.17.195:8080/api/allTrailers");
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // все ок
+                InputStream inputStream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
+                System.out.println(buffer);
+                Gson gson = new Gson();
+                String jsonOutput = String.valueOf(buffer);
+                Type listType = new TypeToken<List<Trailers>>(){}.getType();
+                List<Trailers> trailersList = gson.fromJson(jsonOutput, listType);
+                trailers.addAll(trailersList);
+                System.out.println("----------------------------------------");
+
+            } else {
+                // ошибка
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("########    ######       ######         ######      ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ######       ######       ##      ##    ######");
+                System.out.println("##          ##    ##     ##    ##     ##      ##    ##    ##");
+                System.out.println("########    ##     ##    ##     ##      ######      ##     ##");
+            }
+
+
+        } catch (IOException protocolException) {
+            protocolException.printStackTrace();
+        }
+
+        return trailers;
     }
 
 }

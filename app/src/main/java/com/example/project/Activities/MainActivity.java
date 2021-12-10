@@ -1,16 +1,12 @@
 package com.example.project.Activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
-import com.example.project.Entities.Cadres;
 import com.example.project.Entities.Films;
 import com.example.project.ExampleService;
 import com.example.project.R;
@@ -20,21 +16,8 @@ import com.example.project.bottom_menu.ProfileFragment;
 import com.example.project.bottom_menu.PurchasesFragment;
 import com.example.project.tab_layout.TodayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.secondFragment:
                     intent = new Intent(this, NotificationsFragment.class)
                             .putExtra("films_list", (Serializable) films);
-
                     fragment = new NotificationsFragment();
                     break;
                 case R.id.thirdFragment:

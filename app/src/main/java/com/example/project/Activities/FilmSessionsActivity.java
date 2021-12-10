@@ -1,7 +1,5 @@
 package com.example.project.Activities;
 
-import static com.example.project.tab_layout.TodayFragment.HttpRequest;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Sessions;
 import com.example.project.R;
+import com.example.project.bottom_menu.HomeFragment;
+import com.example.project.bottom_menu.NotificationsFragment;
+import com.example.project.bottom_menu.ProfileFragment;
+import com.example.project.bottom_menu.PurchasesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +40,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     TextView filmName;
+    Fragment fragment;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -44,11 +48,21 @@ public class FilmSessionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_7);
 
-        filmName =findViewById(R.id.film_name);
-        Films film = (Films) getIntent().getSerializableExtra("film");
-        filmName.setText(film.getFilm_orig_name());
-        List<Sessions> sessions =  HttpGetBySessions();
+        LinearLayout list = findViewById(R.id.cinema_list);
         ImageView view = findViewById(R.id.back);
+        Films film = (Films) getIntent().getSerializableExtra("film");
+        List<Sessions> sessions =  HttpGetBySessions();
+        List<Sessions> sessionsList = new ArrayList<>();
+
+        filmName = findViewById(R.id.film_name);
+        filmName.setText(film.getFilm_orig_name());
+
+        for (Sessions s : sessions){
+            if(s.getFilms().getFilm_id().equals(film.getFilm_id())){
+                sessionsList.add(s);
+            }
+        }
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,38 +71,38 @@ public class FilmSessionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.firstFragment:
-                    Intent intent = new Intent(FilmSessionsActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    fragment = new HomeFragment();
                     break;
                 case R.id.secondFragment:
+                    fragment = new NotificationsFragment();
                     break;
                 case R.id.thirdFragment:
+                    fragment = new PurchasesFragment();
                     break;
                 case R.id.forthFragment:
+                    fragment = new ProfileFragment();
                     break;
             }
 
             return true;
         });
 
-        int length = 12;
-
-        LinearLayout list = findViewById(R.id.cinema_list);
-        for (int i = 0; i < sessions.size(); i++){
+        for (int i = 0; i < sessionsList.size(); i++){
             LinearLayout session = new LinearLayout(this);
             LinearLayout.LayoutParams params_session = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_session.setMargins(0,0,0,10);
             session.setOrientation(LinearLayout.HORIZONTAL);
+            int finalI = i;
             session.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FilmSessionsActivity.this, PlaceAndPayActivity.class);
-                    intent.putExtra("filmsObject", film);
+                    intent.putExtra("cinemaObject", sessionsList.get(finalI).getCinemas())
+                    .putExtra("filmObject", film);
                     startActivity(intent);
                 }
             });
@@ -107,25 +121,25 @@ public class FilmSessionsActivity extends AppCompatActivity {
             TextView name = new TextView(this);
             //name.setTypeface(CustomFontsLoader.getTypeface(this, 2));
             name.setTextColor(getResources().getColor(R.color.text_white));
-            name.setText(sessions.get(i).getCinemas().getCinema_name());
+            name.setText(sessionsList.get(i).getCinemas().getCinema_name());
             name.setTextSize(16);
 
             TextView address = new TextView(this);
             //address.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             address.setTextColor(getResources().getColor(R.color.text_gray));
-            address.setText(sessions.get(i).getCinemas().getCinema_address());
+            address.setText(sessionsList.get(i).getCinemas().getCinema_address());
             address.setTextSize(10);
 
             TextView time = new TextView(this);
             //time.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             time.setTextColor(getResources().getColor(R.color.text_gray));
-            time.setText(sessions.get(i).getSession_start_time() + " - " + sessions.get(i).getSession_end_time());
+            time.setText(sessionsList.get(i).getSession_start_time() + " - " + sessionsList.get(i).getSession_end_time());
             time.setTextSize(12);
 
             TextView price = new TextView(this);
             //price.setTypeface(CustomFontsLoader.getTypeface(this, 1));
             price.setTextColor(getResources().getColor(R.color.text_white));
-            price.setText(sessions.get(i).getSession_price()+" tg");
+            price.setText(sessionsList.get(i).getSession_price()+" tg");
             price.setTextSize(16);
 
             View divider = new View(this);
@@ -158,7 +172,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://192.168.0.181:8080/api/allSessions");
+            url = new URL("http://10.10.17.195:8080/api/allSessions");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();

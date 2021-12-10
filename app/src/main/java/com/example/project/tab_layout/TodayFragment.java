@@ -1,18 +1,11 @@
 package com.example.project.tab_layout;
 
-import static android.content.Context.WIFI_SERVICE;
-
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,38 +16,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import android.net.wifi.WifiManager;
-import android.text.format.Formatter;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activities.DetailsFilmActivity;
-import com.example.project.Entities.Cinemas;
-import com.example.project.Entities.Countries;
-import com.example.project.Entities.Directors;
 import com.example.project.Entities.Films;
-import com.example.project.Entities.Genres;
 import com.example.project.R;
-import com.example.project.bottom_menu.NotificationsFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,7 +181,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://192.168.0.181:8080/api/allFilms");
+            url = new URL("http://10.10.17.195:8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();

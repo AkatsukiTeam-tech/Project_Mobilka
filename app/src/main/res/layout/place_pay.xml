@@ -44,46 +44,58 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
     </LinearLayout>
+
     <TextView
-        android:id="@+id/film_name"
+        android:id="@+id/cinema_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kinopark 6"
+        android:text="cinema_name"
         android:layout_marginTop="30dp"
         android:textAlignment="center"
         android:textColor="@color/text_red"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="400dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@color/menu"
         android:foregroundGravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/film_name"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toTopOf="@+id/buy"
+        app:layout_constraintTop_toBottomOf="@+id/cinema_name">
+
         <TableLayout
             android:id="@+id/tableLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
             android:clickable="true"
             android:gravity="center"
-            android:weightSum="1.0"
-            android:stretchColumns="*"
             android:shrinkColumns="0"
-            android:layout_gravity="center"
-            android:layout_height="fill_parent"
-            android:scrollbarSize="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp">
+            android:stretchColumns="*"
+            android:weightSum="1.0">
 
         </TableLayout>
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/text_red"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Оплатить"
+        android:textAllCaps="false"
+        android:textColor="@color/text_white"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
