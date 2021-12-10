@@ -79,7 +79,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
         int length = 12;
 
         LinearLayout list = findViewById(R.id.cinema_list);
-        for (int i = 0; i < film.getCinemas().size(); i++){
+        for (int i = 0; i < sessions.size(); i++){
             LinearLayout session = new LinearLayout(this);
             LinearLayout.LayoutParams params_session = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params_session.setMargins(0,0,0,10);
@@ -118,7 +118,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
 
             TextView time = new TextView(this);
             //time.setTypeface(CustomFontsLoader.getTypeface(this, 1));
-            time.setTextColor(getResources().getColor(R.color.text_white));
+            time.setTextColor(getResources().getColor(R.color.text_gray));
             time.setText(sessions.get(i).getSession_start_time() + " - " + sessions.get(i).getSession_end_time());
             time.setTextSize(12);
 
@@ -131,7 +131,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
             View divider = new View(this);
             divider.setBackgroundResource(R.drawable.separator);
             LinearLayout.LayoutParams params_divider = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params_divider.setMargins(60,0,60,40);
+            params_divider.setMargins(60,20,60,40);
 
             name_address.addView(name, params_text);
             name_address.addView(address, params_text);
@@ -182,7 +182,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
                 System.out.println(buffer);
                 Gson gson = new Gson();
                 String jsonOutput = String.valueOf(buffer);
-                Type listType = new TypeToken<List<Films>>(){}.getType();
+                Type listType = new TypeToken<List<Sessions>>(){}.getType();
                 List<Sessions> sessionsList = gson.fromJson(jsonOutput, listType);
                 sessions.addAll(sessionsList);
                 System.out.println("----------------------------------------");
