@@ -16,15 +16,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             tools:ignore="MissingConstraints">
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back"
-                tools:ignore="MissingConstraints" />
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
@@ -82,13 +75,14 @@
         </LinearLayout>
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/notif_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:trackTint="@color/switch_track_selector"
-            android:thumbTint="@color/switch_thumb_selector"/>
+            android:thumbTint="@color/switch_thumb_selector"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -126,13 +120,14 @@
         </LinearLayout>
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/announce_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:trackTint="@color/switch_track_selector"
-            android:thumbTint="@color/switch_thumb_selector"/>
+            android:thumbTint="@color/switch_thumb_selector"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

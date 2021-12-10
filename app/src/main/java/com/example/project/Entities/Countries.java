@@ -6,7 +6,6 @@ import java.io.Serializable;
 public class Countries implements Serializable{
 
     private Long country_id;
-
     private String country_name;
 
     public Countries(Long country_id, String country_name) {

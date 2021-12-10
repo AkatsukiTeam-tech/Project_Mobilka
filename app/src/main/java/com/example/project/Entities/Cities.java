@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Cities implements Serializable {
     private Long city_id;
-
     private String city_name;
 
     public Cities(Long city_id, String city_name) {

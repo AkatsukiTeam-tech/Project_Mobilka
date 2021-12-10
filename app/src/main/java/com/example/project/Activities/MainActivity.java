@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.project.Entities.Cadres;
+import com.example.project.Entities.Films;
 import com.example.project.ExampleService;
 import com.example.project.R;
 import com.example.project.bottom_menu.HomeFragment;
 import com.example.project.bottom_menu.NotificationsFragment;
 import com.example.project.bottom_menu.ProfileFragment;
 import com.example.project.bottom_menu.PurchasesFragment;
+import com.example.project.tab_layout.TodayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -38,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment fragment = new HomeFragment();
+    Intent intent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        List<Films> films = TodayFragment.HttpRequest();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -52,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                     break;
                 case R.id.secondFragment:
+                    intent = new Intent(this, NotificationsFragment.class)
+                            .putExtra("films_list", (Serializable) films);
+
                     fragment = new NotificationsFragment();
                     break;
                 case R.id.thirdFragment:
@@ -63,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
+            if(intent!=null){
+                startService(intent);
+            }
             return true;
         });
     }

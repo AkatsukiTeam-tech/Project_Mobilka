@@ -1,6 +1,7 @@
 package com.example.project;
 
-import static com.example.project.App.CHANNEL_ID;
+import static com.example.project.App.CHANNEL_ID_1;
+import static com.example.project.App.CHANNEL_ID_2;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -15,7 +16,7 @@ import com.example.project.bottom_menu.NotificationsFragment;
 
 
 public class NotificationService extends Service {
-
+    String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,14 +35,46 @@ public class NotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,0);
 
 
-        Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setContentTitle("From Cinema")
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_android)
-                .setContentIntent(pendingIntent)
-                .build();
+        if(NotificationsFragment.getType_notif().equals("new")) {
+            Notification notification_1 = new NotificationCompat.Builder(this,CHANNEL_ID_1)
+                    .setContentTitle("The date of this MOVIE came out \n")
+                    .setStyle(new NotificationCompat.InboxStyle()
+                            .addLine(message)
+                            .setBigContentTitle("1 new messages")
+                            .setSummaryText("kinopoisk.com")
+                    )
+                    .setContentText(message)
+                    .setSmallIcon(R.drawable.ic_android)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_EMAIL)
+                    .setContentIntent(pendingIntent)
+                    .setGroup(GROUP_KEY_WORK_EMAIL)
+                    .build();
+            startForeground(1,notification_1);
+        }else{
+            Notification notification_2 = new NotificationCompat.Builder(this,CHANNEL_ID_2)
+                    .setContentTitle("The date of this MOVIE came out \n")
+                    .setStyle(new NotificationCompat.InboxStyle()
+                            .addLine(message)
+                            .setBigContentTitle("1 new messages")
+                            .setSummaryText("kinopoisk.com")
+                    )
+                    .setContentText(message)
+                    .setSmallIcon(R.drawable.ic_android)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_EMAIL)
+                    .setContentIntent(pendingIntent)
+                    .setGroup(GROUP_KEY_WORK_EMAIL)
+                    .build();
 
-        startForeground(1,notification);
+
+            startForeground(2,notification_2);
+        }
+
+
+
+
+
 
         return START_NOT_STICKY;
     }

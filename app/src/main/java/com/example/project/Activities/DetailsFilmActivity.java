@@ -8,16 +8,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
-import com.example.project.ExpandableTextView;
-import com.example.project.R;
+import com.example.project.*;
+import com.example.project.bottom_menu.NotificationsFragment;
+import com.example.project.bottom_menu.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.synnapps.carouselview.CarouselView;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -28,7 +28,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     TextView detailsFilm, orig_name, limit_of_age,
             textGenreView, textDirectorView, textDurationView, textCountryView;
-    ImageView image, back_film;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,11 @@ public class DetailsFilmActivity extends AppCompatActivity {
         orig_name = findViewById(R.id.orig_name);
         limit_of_age = findViewById(R.id.limit_of_age);
 
-        limit_of_age.setText(String.valueOf(films.getRestriction()) + "+");
+
+        if(films.getRestriction() == null){
+            films.setRestriction(0);
+        }
+        limit_of_age.setText(films.getRestriction() + "+");
         orig_name.setText(films.getFilm_orig_name());
         detailsFilm.setText(films.getFilm_ru_name());
 
@@ -69,24 +73,29 @@ public class DetailsFilmActivity extends AppCompatActivity {
         }
 
         image.setImageBitmap(bmp);
-        textCountryView.setText(countries.substring(0, countries.length()-2));
-        textDirectorView.setText(films.getDirectors().get(0).getFull_name());
-        textDurationView.setText(films.getFilm_duration().toString());
 
         String genres = "";
         for(Genres g:films.getGenres()){
             genres += g.getGenre_name() + ", ";
         }
-        textGenreView.setText(genres.substring(0, genres.length()-2));
-
         ExpandableTextView textView = findViewById(R.id.tv_text);
-        textView.setText(films.getDescription());
+        try {
+            textGenreView.setText(genres.substring(0, genres.length()-2));
+            textCountryView.setText(countries.substring(0, countries.length()-2));
+            textDirectorView.setText(films.getDirectors().get(0).getFull_name());
+            textDurationView.setText(films.getFilm_duration().toString());
+            textView.setText(films.getDescription());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         MaterialButton buy = findViewById(R.id.buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailsFilmActivity.this, FilmSessionsActivity.class);
+                intent.putExtra("film", films);
                 startActivity(intent);
             }
         });
@@ -108,14 +117,21 @@ public class DetailsFilmActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.secondFragment:
+                    intent = new Intent(DetailsFilmActivity.this, NotificationsFragment.class);
+                    startActivity(intent);
                     break;
                 case R.id.thirdFragment:
+                    intent = new Intent(DetailsFilmActivity.this, PurchasesFragment.class);
+                    startActivity(intent);
                     break;
                 case R.id.forthFragment:
+                    intent = new Intent(DetailsFilmActivity.this, ProfileFragment.class);
+                    startActivity(intent);
                     break;
             }
 
             return true;
         });
     }
+
 }
