@@ -19,11 +19,17 @@
         <activity
             android:name=".Activities.PlaceAndPayActivity"
             android:launchMode="singleTop"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".Activities.SignInActivity"
             android:launchMode="singleTop"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.DetailsFilmActivity"
             android:exported="true" />
@@ -33,13 +39,7 @@
         <activity
             android:name=".Activities.MainActivity"
             android:launchMode="singleTop"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"/>
 
         <meta-data
             android:name="preloaded_fonts"
