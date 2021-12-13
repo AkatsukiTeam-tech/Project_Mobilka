@@ -21,6 +21,10 @@
             android:launchMode="singleTop"
             android:exported="true" />
         <activity
+            android:name=".Activities.SignInActivity"
+            android:launchMode="singleTop"
+            android:exported="true" />
+        <activity
             android:name=".Activities.DetailsFilmActivity"
             android:exported="true" />
         <activity
