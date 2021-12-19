@@ -18,7 +18,6 @@ import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
 import com.example.project.Entities.Trailers;
 import com.example.project.ExpandableTextView;
-import com.example.project.GlobalClass;
 import com.example.project.R;
 import com.example.project.bottom_menu.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
