@@ -1,6 +1,7 @@
 package com.example.project.bottom_menu;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,10 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.project.Activities.SignInActivity;
 import com.example.project.App;
+import com.example.project.CustomDialogProfile;
 import com.example.project.R;
+import com.google.android.material.button.MaterialButton;
 
 
 public class ProfileFragment extends Fragment {
@@ -26,6 +28,7 @@ public class ProfileFragment extends Fragment {
     private View view;
     private TextView myPurchases, signOut;
     private TextView full_name, email;
+    private MaterialButton edit;
 
     public ProfileFragment() {
     }
@@ -58,9 +61,19 @@ public class ProfileFragment extends Fragment {
         myPurchases = view.findViewById(R.id.myPurchases);
         full_name = view.findViewById(R.id.full_name);
         email = view.findViewById(R.id.email);
+        edit = view.findViewById(R.id.edit);
 
         full_name.setText(App.full_name);
         email.setText(App.email);
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialogProfile customDialogProfile = new CustomDialogProfile(ProfileFragment.this.getActivity());
+                customDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                customDialogProfile.show();
+            }
+        });
 
         myPurchases.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +88,7 @@ public class ProfileFragment extends Fragment {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileFragment.this.getActivity(), SignInActivity.class);
-                startActivity(intent);
+                getActivity().finish();
             }
         });
         return view;

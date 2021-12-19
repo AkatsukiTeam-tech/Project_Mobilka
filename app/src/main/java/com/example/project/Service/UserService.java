@@ -13,4 +13,7 @@ public interface UserService {
 
     @POST("login")
     Call<User> login(@Body User user);
+
+    @POST("update")
+    Call<User> update(@Body User user);
 }

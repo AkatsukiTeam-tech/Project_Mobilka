@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/curve_shap"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/text"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Смена пароля"
+            android:textColor="@color/text_white"
+            android:textSize="16dp"/>
+
+        <EditText
+            android:id="@+id/old_pass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Старый пароль"
+            android:inputType="textPassword"
+            android:textColor="@color/text_gray"
+            android:textSize="14dp"/>
+
+        <EditText
+            android:id="@+id/new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Новый пароль"
+            android:inputType="textPassword"
+            android:textColor="@color/text_gray"
+            android:textSize="14dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/text_red"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Готово"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white"
+            android:textSize="16dp"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

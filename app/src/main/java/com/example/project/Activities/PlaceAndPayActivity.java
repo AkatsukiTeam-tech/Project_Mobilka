@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
+import com.example.project.Entities.Place;
 import com.example.project.R;
 
 public class PlaceAndPayActivity extends AppCompatActivity {
@@ -86,12 +87,13 @@ public class PlaceAndPayActivity extends AppCompatActivity {
                 buttonView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
                 buttonView.setPadding(0,0,0,0);
                 buttonView.setTextColor(getResources().getColor(R.color.text_white));
-
                 buttonView.setLinksClickable(true);
 
                 buttonView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Place place = new Place(null , 2,2, null);
+
                         buttonView.setBackgroundResource(armchair_active);
                     }
                 });
