@@ -2,15 +2,16 @@ package com.example.project.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.project.Entities.Films;
-import com.example.project.ExampleService;
 import com.example.project.R;
-import com.example.project.bottom_menu.*;
+import com.example.project.bottom_menu.HomeFragment;
+import com.example.project.bottom_menu.NotificationsFragment;
+import com.example.project.bottom_menu.ProfileFragment;
+import com.example.project.bottom_menu.PurchasesFragment;
 import com.example.project.tab_layout.TodayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<Films> films = TodayFragment.HttpRequest();
+        List<Films> films = TodayFragment.HttpRequest();/*
+        User currentUser = (User) getIntent().getSerializableExtra("currentUser");*/
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new PurchasesFragment();
                     break;
                 case R.id.forthFragment:
+                    intent = new Intent(this, ProfileFragment.class)/*
+                            .putExtra("currentUser", (Serializable) currentUser)*/;
                     fragment = new ProfileFragment();
                     break;
             }
@@ -56,7 +60,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void startService(View view) {
-        Intent serviceIntent = new Intent(this, ExampleService.class);
-    }
 }

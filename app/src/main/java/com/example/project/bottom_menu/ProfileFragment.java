@@ -1,6 +1,5 @@
 package com.example.project.bottom_menu;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.project.Activities.SignInActivity;
+import com.example.project.App;
 import com.example.project.R;
 
 
@@ -23,11 +23,9 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    View view;
-    TextView myPurchases, signOut;
-
-
-    Context context = getContext();
+    private View view;
+    private TextView myPurchases, signOut;
+    private TextView full_name, email;
 
     public ProfileFragment() {
     }
@@ -54,8 +52,16 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+/*
+        User currentUser = (User) this.getActivity().getIntent().getSerializableExtra("currentUser");*/
 
         myPurchases = view.findViewById(R.id.myPurchases);
+        full_name = view.findViewById(R.id.full_name);
+        email = view.findViewById(R.id.email);
+
+        full_name.setText(App.full_name);
+        email.setText(App.email);
+
         myPurchases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

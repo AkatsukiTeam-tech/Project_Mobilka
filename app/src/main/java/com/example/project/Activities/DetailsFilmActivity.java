@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.project.App;
 import com.example.project.Entities.Countries;
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Genres;
@@ -82,7 +83,6 @@ public class DetailsFilmActivity extends AppCompatActivity {
         textDurationView = findViewById(R.id.textView3);
 
         image = findViewById(R.id.image);
-        //back_film = findViewById(R.id.back_film);
 
         String countries = "";
         for (Countries country : films.getCountries()){
@@ -167,8 +167,7 @@ public class DetailsFilmActivity extends AppCompatActivity {
 
         URL url = null;
         BufferedReader reader = null;
-        GlobalClass gb = new GlobalClass();
-        String URL = gb.getUrl();
+        String URL = App.url;
         List<Trailers> trailers = new ArrayList<>();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

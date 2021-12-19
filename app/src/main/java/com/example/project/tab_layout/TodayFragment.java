@@ -10,9 +10,9 @@ import android.widget.GridView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.App;
 import com.example.project.CustomListAdapter;
 import com.example.project.Entities.Films;
-import com.example.project.GlobalClass;
 import com.example.project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -70,99 +70,6 @@ public class TodayFragment extends Fragment {
 
         gridView = view.findViewById(R.id.grid_view);
         gridView.setAdapter(new CustomListAdapter(films, inflater, this.getContext()));
-        /*
-        int total = films.size();
-        int column = 3;
-        int row = total/column;
-        GridLayout grid = view.findViewById(R.id.grid);
-        grid.setColumnCount(column);
-        grid.setRowCount(row + 1);
-
-        for (int i = 0, c = 0, r = 0; i < total; i++, c++){
-            if (c == column){
-                c = 0;
-                r++;
-            }
-
-            CardView card = new CardView(this.getContext());
-            GridLayout.LayoutParams params_card = new GridLayout.LayoutParams();
-
-            params_card.height = GridLayout.LayoutParams.MATCH_PARENT;
-            params_card.width  = GridLayout.LayoutParams.WRAP_CONTENT;
-            params_card.setGravity(Gravity.FILL);
-            params_card.columnSpec = GridLayout.spec(c);
-            params_card.rowSpec = GridLayout.spec(r);
-            params_card.leftMargin = 32;
-            params_card.rightMargin = 32;
-            params_card.bottomMargin = 110;
-
-            card.setBackgroundColor(getResources().getColor(R.color.background));
-            card.setRadius(8);
-            card.setLayoutParams(params_card);
-
-            LinearLayout layout = new LinearLayout(this.getContext());
-            LinearLayout.LayoutParams params_layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layout.setOrientation(LinearLayout.VERTICAL);
-            int finalI = i;
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(TodayFragment.super.getContext(), DetailsFilmActivity.class)
-                            .putExtra("films", films.get(finalI));
-                    startActivity(intent);
-                }
-            });
-            params_layout.gravity = Gravity.CLIP_HORIZONTAL|Gravity.CENTER_HORIZONTAL;
-
-            URL url = null;
-            Bitmap bmp = null;
-            try {
-                url = new URL(films.get(finalI).getImage_url());
-                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            ImageView image = new ImageView(this.getContext());
-            image.setImageBitmap(bmp);
-
-            TextView text_name = new TextView(this.getContext());
-            text_name.setText(films.get(finalI).getFilm_ru_name());
-            text_name.setTextSize(12);
-            int maxLength = 5;
-            InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(maxLength);
-            text_name.setFilters(fArray);
-            text_name.setGravity(2);
-            text_name.setMaxEms(7);
-
-            text_name.setTextColor(getResources().getColor(R.color.text_white));
-
-            TextView text_genre = new TextView(this.getContext());
-            if(!films.get(finalI).getGenres().isEmpty()){
-                text_genre.setText(films.get(finalI).getGenres().get(0).getGenre_name());
-            }
-            text_genre.setTextSize(10);
-            text_genre.setTextColor(getResources().getColor(R.color.text_gray));
-
-            LinearLayout.LayoutParams params_image = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params_image.gravity = Gravity.CENTER;
-            params_image.width = 224;
-            params_image.height = 336;
-            params_image.setMargins(0,0,0,20);
-
-            LinearLayout.LayoutParams params_text = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params_text.gravity = Gravity.CENTER;
-
-            layout.addView(image, params_image);
-            layout.addView(text_name, params_text);
-            layout.addView(text_genre, params_text);
-            card.addView(layout, params_layout);
-
-            grid.addView(card);
-        }*/
 
         return view;
     }
@@ -171,8 +78,7 @@ public class TodayFragment extends Fragment {
 
         URL url = null;
         BufferedReader reader = null;
-        GlobalClass gb = new GlobalClass();
-        String URL = gb.getUrl();
+        String URL = App.url;
         List<Films> films = new ArrayList<>();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

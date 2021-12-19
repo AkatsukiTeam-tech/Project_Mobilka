@@ -10,4 +10,7 @@ public interface UserService {
 
     @POST("register")
     Call<User> createAccount(@Body User user);
+
+    @POST("login")
+    Call<User> login(@Body User user);
 }

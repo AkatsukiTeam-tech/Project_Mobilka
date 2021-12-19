@@ -1,27 +1,18 @@
 package com.example.project.bottom_menu;
 
-import static android.content.Intent.getIntent;
-
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.example.project.Activities.MainActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.project.Entities.Films;
-import com.example.project.ExampleService;
-import com.example.project.NotificationService;
 import com.example.project.R;
 import com.example.project.tab_layout.TodayFragment;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,31 +99,6 @@ public class NotificationsFragment extends Fragment {
         }
 
         String message = "";
-
-
-
-        Intent serviceIntent = null;
-        if(type.equals("announce")){
-            serviceIntent = new Intent(getActivity(), NotificationService.class);
-            for(Films f:announce_films) {
-                message = message + f.getFilm_orig_name() + ", \n";
-            }
-            serviceIntent.putExtra("message",message + "\n");
-            type_notif = "announce";
-            getActivity().startService(serviceIntent);
-        }else if(type.equals("new")){
-            serviceIntent = new Intent(getActivity(), NotificationService.class);
-            for(Films f:new_films) {
-                message = message + f.getFilm_orig_name() + ": "+f.getFilm_date() + ", \n";
-            }
-            serviceIntent.putExtra("message",message + "\n");
-            type_notif = "new";
-            getActivity().startService(serviceIntent);
-        }
-
-
-
-
 
     }
 }

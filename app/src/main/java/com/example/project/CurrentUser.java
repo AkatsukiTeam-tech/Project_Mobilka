@@ -1,31 +1,23 @@
-package com.example.project.Entities;
+package com.example.project;
 
-import java.io.Serializable;
+import android.app.Application;
 
-public class User implements Serializable {
-    private Long user_id;
-    private String email;
-    private String password;
-    private String full_name;
+public class CurrentUser extends Application {
+    private Long user_id = null;
+    private String email = "";
+    private String password = "";
+    private String full_name = "";
 
-    public User() {
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", full_name='" + full_name + '\'' +
-                '}';
-    }
 
-    public User(Long user_id, String email, String password, String full_name) {
+    public CurrentUser(Long user_id, String email, String password, String full_name) {
         this.user_id = user_id;
         this.email = email;
         this.password = password;
         this.full_name = full_name;
+    }
+
+    public CurrentUser() {
     }
 
     public Long getUser_id() {

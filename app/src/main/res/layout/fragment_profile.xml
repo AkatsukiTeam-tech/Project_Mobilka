@@ -80,6 +80,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center">
                 <TextView
+                    android:id="@+id/full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
@@ -88,6 +89,7 @@
                     android:textColor="@color/text_white"
                     android:textSize="14dp" />
                 <TextView
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
@@ -109,7 +111,7 @@
             android:textColor="@color/text_white"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:strokeColor="@color/white"
-            app:cornerRadius="10dp" />\
+            app:cornerRadius="10dp" />
 
         <TextView
             android:id="@+id/myPurchases"
