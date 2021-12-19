@@ -8,6 +8,16 @@ public class User implements Serializable {
     private String password;
     private String full_name;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", full_name='" + full_name + '\'' +
+                '}';
+    }
+
     public User(Long user_id, String email, String password, String full_name) {
         this.user_id = user_id;
         this.email = email;

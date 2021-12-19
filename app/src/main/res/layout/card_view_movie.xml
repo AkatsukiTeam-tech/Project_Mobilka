@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:backgroundTint="@color/background"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="86dp"
+            android:layout_height="128dp"
+            android:background="@drawable/custom_image"
+            android:layout_marginBottom="10dp"
+            android:clipToOutline="true"
+            android:src="@drawable/film" />
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/movie_name"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Название фильма"
+            android:textColor="@color/text_white"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/movie_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Жанр"
+            android:textColor="@color/text_gray"
+            android:textSize="10dp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

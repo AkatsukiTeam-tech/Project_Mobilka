@@ -13,22 +13,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            >
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Профиль"
                 android:textColor="@color/text_gray"
                 android:textSize="16dp"
-                tools:ignore="MissingConstraints"/>
-        </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/signOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Выйти"
+                android:textColor="@color/text_gray"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -96,9 +109,10 @@
             android:textColor="@color/text_white"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:strokeColor="@color/white"
-            app:cornerRadius="10dp" />
+            app:cornerRadius="10dp" />\
 
         <TextView
+            android:id="@+id/myPurchases"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -107,5 +121,9 @@
             android:textSize="14dp"
             android:textColor="@color/text_white"
             android:fontFamily="@font/roboto_light" />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

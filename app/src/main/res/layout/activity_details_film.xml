@@ -44,27 +44,28 @@
 
             <LinearLayout
                 android:id="@+id/name_info"
-                android:layout_width="wrap_content"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
                 android:orientation="vertical"
-                android:layout_marginStart="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/image"
-                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image">
 
                 <TextView
                     android:id="@+id/detailsFilm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Название фильма"
                     android:textColor="@color/text_red"
                     android:textSize="16dp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/orig_name"
@@ -80,14 +81,15 @@
                         android:id="@+id/limit_of_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:background="@drawable/limit_of_age"
                         android:fontFamily="@font/roboto_medium"
                         android:text="16+"
+                        android:layout_gravity="right"
                         android:textColor="@color/background"
                         android:textSize="10dp"
                         tools:layout_editor_absoluteY="416dp" />
                 </LinearLayout>
+
                 <TableLayout
                     android:id="@+id/genre"
                     android:layout_width="wrap_content"

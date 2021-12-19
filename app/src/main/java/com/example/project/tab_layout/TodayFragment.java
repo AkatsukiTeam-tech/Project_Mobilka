@@ -1,26 +1,18 @@
 package com.example.project.tab_layout;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.InputFilter;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.GridView;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project.Activities.DetailsFilmActivity;
+import com.example.project.CustomListAdapter;
 import com.example.project.Entities.Films;
+import com.example.project.GlobalClass;
 import com.example.project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,7 +23,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +33,7 @@ public class TodayFragment extends Fragment {
 
     private RecyclerView recyclerView;
     View view;
+    private GridView gridView;
     Gson gson = new Gson();
 
     private String mParam1;
@@ -75,10 +67,13 @@ public class TodayFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_today, container, false);
 
         List<Films> films = HttpRequest();
+
+        gridView = view.findViewById(R.id.grid_view);
+        gridView.setAdapter(new CustomListAdapter(films, inflater, this.getContext()));
+        /*
         int total = films.size();
         int column = 3;
         int row = total/column;
-
         GridLayout grid = view.findViewById(R.id.grid);
         grid.setColumnCount(column);
         grid.setRowCount(row + 1);
@@ -167,7 +162,8 @@ public class TodayFragment extends Fragment {
             card.addView(layout, params_layout);
 
             grid.addView(card);
-        }
+        }*/
+
         return view;
     }
 
@@ -175,13 +171,15 @@ public class TodayFragment extends Fragment {
 
         URL url = null;
         BufferedReader reader = null;
+        GlobalClass gb = new GlobalClass();
+        String URL = gb.getUrl();
         List<Films> films = new ArrayList<>();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://10.10.17.195:8080/api/allFilms");
+            url = new URL("http://" + URL + ":8080/api/allFilms");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();

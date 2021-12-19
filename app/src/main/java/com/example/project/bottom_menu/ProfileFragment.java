@@ -1,13 +1,17 @@
 package com.example.project.bottom_menu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.project.Activities.SignInActivity;
 import com.example.project.R;
 
 
@@ -18,6 +22,12 @@ public class ProfileFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    View view;
+    TextView myPurchases, signOut;
+
+
+    Context context = getContext();
 
     public ProfileFragment() {
     }
@@ -43,7 +53,26 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        myPurchases = view.findViewById(R.id.myPurchases);
+        myPurchases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new PurchasesFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        signOut = view.findViewById(R.id.signOut);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileFragment.this.getActivity(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 }

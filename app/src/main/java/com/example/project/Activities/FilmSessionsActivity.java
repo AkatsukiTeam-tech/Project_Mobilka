@@ -17,11 +17,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.project.Entities.Films;
 import com.example.project.Entities.Sessions;
+import com.example.project.GlobalClass;
 import com.example.project.R;
-import com.example.project.bottom_menu.HomeFragment;
-import com.example.project.bottom_menu.NotificationsFragment;
-import com.example.project.bottom_menu.ProfileFragment;
-import com.example.project.bottom_menu.PurchasesFragment;
+import com.example.project.bottom_menu.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -166,13 +164,15 @@ public class FilmSessionsActivity extends AppCompatActivity {
 
         URL url = null;
         BufferedReader reader = null;
+        GlobalClass gb = new GlobalClass();
+        String URL = gb.getUrl();
         List<Sessions> sessions = new ArrayList<>();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://10.10.17.195:8080/api/allSessions");
+            url = new URL("http://"+ URL +":8080/api/allSessions");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();

@@ -10,10 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.project.Entities.Films;
 import com.example.project.ExampleService;
 import com.example.project.R;
-import com.example.project.bottom_menu.HomeFragment;
-import com.example.project.bottom_menu.NotificationsFragment;
-import com.example.project.bottom_menu.ProfileFragment;
-import com.example.project.bottom_menu.PurchasesFragment;
+import com.example.project.bottom_menu.*;
 import com.example.project.tab_layout.TodayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

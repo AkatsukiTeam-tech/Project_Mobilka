@@ -4,4 +4,6 @@
     <string name="genre"><u>Жанр[0], Жанр[1], Жанр[2]</u></string>
     <string name="my_purchases"><u>Мои покупки</u></string>
     <string name="guest"><u>Гость</u></string>
+    <string name="sign_in"><u>У меня есть аккаунт</u></string>
+    <string name="sign_up"><u>У меня нет аккаунта</u></string>
 </resources>

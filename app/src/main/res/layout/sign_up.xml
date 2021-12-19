@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".Activities.SignInActivity">
+    tools:context=".Activities.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,43 +19,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Cinema "
-                android:textColor="@color/text_white"
-                android:textSize="24dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Time"
-                android:textColor="@color/text_red"
-                android:textSize="24dp" />
-        </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Войти"
+            android:text="Зарегистрироваться"
             android:textColor="@color/text_white"
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/text_email"
+            android:id="@+id/full_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
+            android:background="@drawable/custom_edit_text"
+            android:inputType="text"
+            android:hint="ФИО"
+            android:textColor="@color/text_gray"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/custom_edit_text"
             android:ems="10"
             android:inputType="textEmailAddress"
@@ -64,7 +51,7 @@
             android:textSize="14dp" />
 
         <EditText
-            android:id="@+id/text_password"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
@@ -75,8 +62,20 @@
             android:textColor="@color/text_gray"
             android:textSize="14dp" />
 
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edit_text"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Подтвердите пароль"
+            android:textColor="@color/text_gray"
+            android:textSize="14dp" />
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login"
+            android:id="@+id/done"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
@@ -89,13 +88,13 @@
             app:cornerRadius="10dp" />
 
         <TextView
-            android:id="@+id/sign_up"
+            android:id="@+id/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_regular"
-            android:onClick="toSignUpActivity"
-            android:text="@string/sign_up"
+            android:onClick="toSignInActivity"
+            android:text="@string/sign_in"
             android:textColor="@color/text_white"
             android:textSize="14dp" />
 
@@ -129,7 +128,6 @@
                 android:textColor="@color/text_white"
                 android:textSize="14dp" />
         </LinearLayout>
-
 
 
     </LinearLayout>
