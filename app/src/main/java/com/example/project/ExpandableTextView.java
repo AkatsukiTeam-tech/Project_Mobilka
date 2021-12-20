@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class ExpandableTextView extends LinearLayout {
     private TextView mContentTextView;
     private TextView mExpansionButton;
-    private int mMaxLine = 5;
+    private int mMaxLine = 3;
     private CharSequence mContent;
     private boolean mIsExpansion;
 
