@@ -12,12 +12,15 @@ public class PaymentsDTO {
     private Films films;
     private Cinemas cinemas;
     private User user;
+    private Integer price;
 
-    public PaymentsDTO(List<Place> places, Films films, Cinemas cinemas, User user) {
+
+    public PaymentsDTO(List<Place> places, Films films, Cinemas cinemas, User user, Integer price) {
         this.places = places;
         this.films = films;
         this.cinemas = cinemas;
         this.user = user;
+        this.price = price;
     }
 
     public List<Place> getPlaces() {

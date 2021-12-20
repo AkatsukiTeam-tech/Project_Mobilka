@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#121212"
-    android:background="#121212"
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:scrollbarSize="0dp"
     tools:context=".bottom_menu.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Announce"
-        android:textColor="@color/white"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:weightSum="10">
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            />
+    </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

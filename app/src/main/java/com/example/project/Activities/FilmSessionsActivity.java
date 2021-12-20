@@ -103,7 +103,7 @@ public class FilmSessionsActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(FilmSessionsActivity.this, PlaceAndPayActivity.class);
                     intent.putExtra("cinemaObject", sessionsList.get(finalI).getCinemas())
-                    .putExtra("filmObject", film);
+                    .putExtra("filmObject", film).putExtra("session", sessionsList.get(finalI));
                     startActivity(intent);
                 }
             });

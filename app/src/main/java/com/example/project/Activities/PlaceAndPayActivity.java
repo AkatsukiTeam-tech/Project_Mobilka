@@ -5,8 +5,6 @@ import static com.example.project.R.drawable.armchair_active;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -22,10 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
-import com.example.project.Entities.Payments;
 import com.example.project.Entities.Place;
-import com.example.project.Frames.*;
-import com.example.project.Entities.Place;
+import com.example.project.Entities.Sessions;
+import com.example.project.Frames.BottomSheetFragment;
 import com.example.project.R;
 
 import java.util.ArrayList;
@@ -40,6 +37,7 @@ public class PlaceAndPayActivity extends AppCompatActivity {
     List<Place> places = new ArrayList<>();
     Films film;
     Cinemas cinemas;
+    Sessions session;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -49,6 +47,7 @@ public class PlaceAndPayActivity extends AppCompatActivity {
 
         cinemas = (Cinemas) getIntent().getSerializableExtra("cinemaObject");
         film = (Films) getIntent().getSerializableExtra("filmObject");
+        session = (Sessions) getIntent().getSerializableExtra("session");
         ImageView view = findViewById(R.id.back);
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
@@ -153,6 +152,7 @@ public class PlaceAndPayActivity extends AppCompatActivity {
                 BottomSheetFragment.cinema = cinemas;
                 BottomSheetFragment.film = film;
                 BottomSheetFragment.places = places;
+                BottomSheetFragment.session = session;
                 dialog.show(getSupportFragmentManager(),dialog.getTag());
 
 

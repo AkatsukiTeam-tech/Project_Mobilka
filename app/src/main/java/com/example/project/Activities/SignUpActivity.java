@@ -47,7 +47,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validation(full_name, email, password, confirm_password)){
                     User user = new User(null, String.valueOf(email.getText()), String.valueOf(password.getText()), String.valueOf(full_name.getText()));
-                    sendUserToRegister(user);
+
+                    if (sendUserToRegister(user))
+                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
 
                 }
 
@@ -71,10 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.isSuccessful()){
-                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-                    }
-                    else {
+                    if (!response.isSuccessful()){
                         Toast.makeText(SignUpActivity.this, "Пользователь уже существует", Toast.LENGTH_SHORT).show();
                     }
                 }

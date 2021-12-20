@@ -1,8 +1,6 @@
 package com.example.project.Entities;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 public class Films implements Serializable {
@@ -12,8 +10,8 @@ public class Films implements Serializable {
     private String image_url;
     private String description;
     private Integer restriction;
-    private String film_duration;
-    private String film_date;
+    private String duration;
+    private String date;
     private List<Countries> countries;
     private List<Directors> directors;
     private List<Genres> genres;
@@ -21,7 +19,7 @@ public class Films implements Serializable {
     private boolean announce;
 
     public Films(Long film_id, String film_ru_name, String film_orig_name, String image_url, String description,
-                 int restriction, String film_duration, String film_date, List<Countries> countries,
+                 int restriction, String duration, String date, List<Countries> countries,
                  List<Directors> directors, List<Genres> genres, List<Cinemas> cinemas,boolean announce) {
         this.film_id = film_id;
         this.film_ru_name = film_ru_name;
@@ -29,8 +27,8 @@ public class Films implements Serializable {
         this.image_url = image_url;
         this.description = description;
         this.restriction = restriction;
-        this.film_duration = film_duration;
-        this.film_date = film_date;
+        this.duration = duration;
+        this.date = date;
         this.countries = countries;
         this.directors = directors;
         this.genres = genres;
@@ -98,19 +96,19 @@ public class Films implements Serializable {
     }
 
     public String getFilm_duration() {
-        return film_duration;
+        return duration;
     }
 
-    public void setFilm_duration(String film_duration) {
-        this.film_duration = film_duration;
+    public void setFilm_duration(String duration) {
+        this.duration = duration;
     }
 
     public String getFilm_date() {
-        return film_date;
+        return date;
     }
 
-    public void setFilm_date(String film_date) {
-        this.film_date = film_date;
+    public void setFilm_date(String date) {
+        this.date = date;
     }
 
     public List<Countries> getCountries() {

@@ -62,7 +62,12 @@ public class CustomListAdapter extends BaseAdapter {
 
         Films films = this.listData.get(i);
         holder.name.setText(films.getFilm_ru_name());
-        holder.genre.setText(films.getGenres().get(0).getGenre_name());
+
+        if (films.isAnnounce()){
+            holder.genre.setText("Aнонсирован");
+        } else {
+            holder.genre.setText(films.getGenres().get(0).getGenre_name());
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

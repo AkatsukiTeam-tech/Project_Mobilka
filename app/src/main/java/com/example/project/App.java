@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class App extends Application {
 
-    public static String url = "10.10.17.246";
+    public static String url = "192.168.0.181";
     public static Long user_id = null;
     public static String email = "";
     public static String password = "";

@@ -55,8 +55,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-/*
-        User currentUser = (User) this.getActivity().getIntent().getSerializableExtra("currentUser");*/
 
         myPurchases = view.findViewById(R.id.myPurchases);
         full_name = view.findViewById(R.id.full_name);

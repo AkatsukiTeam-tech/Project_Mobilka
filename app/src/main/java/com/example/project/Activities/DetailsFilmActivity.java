@@ -62,17 +62,21 @@ public class DetailsFilmActivity extends AppCompatActivity {
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(YouTubePlayer youTubePlayer) {
-                String video_id = trailers.get(trailers.size() - 1).getTrailer_url();
-                youTubePlayer.loadVideo(video_id, 0);
+                if (!trailers.isEmpty()){
+                    String video_id = trailers.get(trailers.size() - 1).getTrailer_url();
+                    youTubePlayer.loadVideo(video_id, 0);
+                }
                 youTubePlayer.pause();
             }
         });
 
 
         if(films.getRestriction() == null){
-            films.setRestriction(0);
+            limit_of_age.setText("Unknown");
         }
-        limit_of_age.setText(films.getRestriction() + "+");
+        else {
+            limit_of_age.setText(films.getRestriction() + "+");
+        }
         orig_name.setText(films.getFilm_orig_name());
         detailsFilm.setText(films.getFilm_ru_name());
 
@@ -105,28 +109,60 @@ public class DetailsFilmActivity extends AppCompatActivity {
         for(Genres g:films.getGenres()){
             genres += g.getGenre_name() + ", ";
         }
+
         ExpandableTextView textView = findViewById(R.id.tv_text);
         try {
-            textGenreView.setText(genres.substring(0, genres.length()-2));
-            textCountryView.setText(countries.substring(0, countries.length()-2));
-            textDirectorView.setText(films.getDirectors().get(0).getFull_name());
-            textDurationView.setText(films.getFilm_duration());
-            textView.setText(films.getDescription());
-            System.out.println(films.getDescription());
+            if (films.getGenres().isEmpty()){
+                textGenreView.setText("Unknown");
+            }
+            else {
+                textGenreView.setText(genres.substring(0, genres.length()-2));
+            }
+            if (films.getCountries().isEmpty()){
+                textGenreView.setText("Unknown");
+            }
+            else {
+                textCountryView.setText(countries.substring(0, countries.length()-2));
+            }
+            if (films.getDirectors().isEmpty()){
+                textGenreView.setText("Unknown");
+            }
+            else {
+                textDirectorView.setText(films.getDirectors().get(0).getFull_name());
+            }
+            if (films.getFilm_duration().isEmpty()){
+                textGenreView.setText("Unknown");
+            }
+            else {
+                textDurationView.setText(films.getFilm_duration());
+            }
+            if (films.getDescription().isEmpty()){
+                textGenreView.setText("Unknown");
+            }
+            else {
+                textView.setText(films.getDescription());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
 
 
         MaterialButton buy = findViewById(R.id.buy);
-        buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailsFilmActivity.this, FilmSessionsActivity.class);
-                intent.putExtra("film", films);
-                startActivity(intent);
-            }
-        });
+
+        if (films.isAnnounce()){
+            buy.setText("Анонсирован");
+            buy.setClickable(false);
+        }
+        else {
+            buy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DetailsFilmActivity.this, FilmSessionsActivity.class);
+                    intent.putExtra("film", films);
+                    startActivity(intent);
+                }
+            });
+        }
 
         ImageButton detailFilm = findViewById(R.id.back);
         detailFilm.setOnClickListener(new View.OnClickListener() {

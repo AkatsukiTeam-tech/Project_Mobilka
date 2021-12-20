@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.App;
 import com.example.project.CustomListAdapter;
@@ -31,10 +30,8 @@ public class TodayFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView recyclerView;
     View view;
     private GridView gridView;
-    Gson gson = new Gson();
 
     private String mParam1;
     private String mParam2;
@@ -85,7 +82,7 @@ public class TodayFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
 
             //ip ---------------------------------------------
-            url = new URL("http://" + URL + ":8080/api/allFilms");
+            url = new URL("http://" + URL + ":8080/api/today");
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection) url.openConnection();
@@ -111,9 +108,8 @@ public class TodayFragment extends Fragment {
                 String jsonOutput = String.valueOf(buffer);
                 Type listType = new TypeToken<List<Films>>(){}.getType();
                 List<Films> filmsList = gson.fromJson(jsonOutput, listType);
+
                 films.addAll(filmsList);
-                System.out.println("----------------------------------------");
-                System.out.println(films.get(0).getFilm_ru_name());
 
             } else {
                 // ошибка

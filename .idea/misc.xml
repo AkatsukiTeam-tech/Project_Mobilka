@@ -3,42 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/4ecd700c773cf5624732e3577602f1ea/transformed/appcompat-1.3.1/res/drawable/abc_btn_default_mtrl_shape.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/curve_shap.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/custom_button.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/custom_edit_text.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/custom_image.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/indicator.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/rounded.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/searchview_background.xml" value="0.3859375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/drawable/sel_text_touch.xml" value="0.3859375" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/activity_details_film.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/activity_main.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/card_view_movie.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/child_view.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/custom_dialog_profile.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_all.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_anonce.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_notificatons.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_profile.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_purchases.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_today.xml" value="0.3641025641025641" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/group_view.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/object_7.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/place_pay.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/sign_in.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Project/app/src/main/res/layout/sign_up.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/activity_details_film.xml" value="0.33" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_all.xml" value="0.209375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_anonce.xml" value="0.209375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_home.xml" value="0.3765625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project/app/src/main/res/layout/fragment_today.xml" value="0.209375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/activity_details_film.xml" value="0.25" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_notificatons.xml" value="0.3765625" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/item_youtube_list.xml" value="0.209375" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/recyclerview_item_layout.xml" value="0.209375" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/view_expandable.xml" value="0.209375" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/drawable/rounded.xml" value="0.11927083333333334" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/activity_details_film.xml" value="0.1796875" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/child_view.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/custom_dialog_profile.xml" value="0.1796875" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_all.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_anonce.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.22" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_home.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_notificatons.xml" value="0.11875" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_profile.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_purchases.xml" value="0.22" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/fragment_today.xml" value="0.1" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/group_view.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/list_purchases_layout.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/object_7.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/place_pay.xml" value="0.22" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/recyclerview_item_layout.xml" value="0.1" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/sign_in.xml" value="0.12083333333333333" />
-        <entry key="..\:/Users/tokta/AndroidStudioProjects/Project_Mobilka/app/src/main/res/layout/view_expandable.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>
