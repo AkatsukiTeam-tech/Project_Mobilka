@@ -15,6 +15,12 @@ public class Place implements Serializable {
         this.payments = payments;
     }
 
+    public Place(Long place_id, Integer placeX, Integer placeY) {
+        this.place_id = place_id;
+        this.placeX = placeX;
+        this.placeY = placeY;
+    }
+
     public Long getPlace_id() {
         return place_id;
     }
@@ -45,5 +51,15 @@ public class Place implements Serializable {
 
     public void setPayments(Payments payments) {
         this.payments = payments;
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "place_id=" + place_id +
+                ", placeX=" + placeX +
+                ", placeY=" + placeY +
+                ", payments=" + payments +
+                '}';
     }
 }

@@ -5,6 +5,8 @@ import static com.example.project.R.drawable.armchair_active;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -20,12 +22,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Entities.Cinemas;
 import com.example.project.Entities.Films;
+import com.example.project.Entities.Payments;
+import com.example.project.Entities.Place;
+import com.example.project.Frames.*;
 import com.example.project.Entities.Place;
 import com.example.project.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceAndPayActivity extends AppCompatActivity {
 
     TextView cinema_name;
+    Button payButton;
+    TextView place;
+    String result = "";
+    List<Place> places = new ArrayList<>();
+    Films film;
+    Cinemas cinemas;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -33,8 +47,8 @@ public class PlaceAndPayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_pay);
 
-        Cinemas cinemas = (Cinemas) getIntent().getSerializableExtra("cinemaObject");
-        Films film = (Films) getIntent().getSerializableExtra("filmObject");
+        cinemas = (Cinemas) getIntent().getSerializableExtra("cinemaObject");
+        film = (Films) getIntent().getSerializableExtra("filmObject");
         ImageView view = findViewById(R.id.back);
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
@@ -54,7 +68,7 @@ public class PlaceAndPayActivity extends AppCompatActivity {
         int rows = 12;
         int columns = 10;
 
-
+        boolean busy = false;
         for (int i = 0; i < rows; i++){
 
             TableRow tableRow = new TableRow(this);
@@ -87,14 +101,32 @@ public class PlaceAndPayActivity extends AppCompatActivity {
                 buttonView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
                 buttonView.setPadding(0,0,0,0);
                 buttonView.setTextColor(getResources().getColor(R.color.text_white));
+
                 buttonView.setLinksClickable(true);
 
+                int finalI = i;
+                int finalJ = j;
                 buttonView.setOnClickListener(new View.OnClickListener() {
+                    boolean busy = false;
+
                     @Override
                     public void onClick(View view) {
-                        Place place = new Place(null , 2,2, null);
-
-                        buttonView.setBackgroundResource(armchair_active);
+                        if(busy){
+                            busy = false;
+                            buttonView.setBackgroundResource(armchair);
+                            for(int i = 0; i < places.size(); i++){
+                                if(places.get(i).getPlaceX().equals(Integer.parseInt(String.valueOf(finalI))) && places.get(i).getPlaceY().equals(Integer.parseInt(String.valueOf(finalJ)))){
+                                    places.remove(places.get(i));
+                                    System.out.println(places.toString());
+                                }
+                            }
+                        }else{
+                            busy = true;
+                            buttonView.setBackgroundResource(armchair_active);
+                            result = " "+ finalI +"," + finalJ;
+                            places.add(new Place(Long.parseLong(String.valueOf(places.size())),finalI,finalJ));
+                            System.out.println(places.toString());
+                        }
                     }
                 });
 
@@ -112,6 +144,26 @@ public class PlaceAndPayActivity extends AppCompatActivity {
 
         }
 
+        payButton = findViewById(R.id.buy);
+
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetFragment dialog = new BottomSheetFragment();
+                BottomSheetFragment.cinema = cinemas;
+                BottomSheetFragment.film = film;
+                BottomSheetFragment.places = places;
+                dialog.show(getSupportFragmentManager(),dialog.getTag());
+
+
+
+            }
+        });
+    }
+
+    public Place createPlace(Integer place_x, Integer place_y){
+        Place place = new Place(null, place_x, place_y, null);
+        return place;
     }
 
 

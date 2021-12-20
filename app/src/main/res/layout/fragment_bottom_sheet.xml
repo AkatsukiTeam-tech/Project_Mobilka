@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/rounded"
+    android:orientation="vertical"
+    tools:context=".Frames.BottomSheetFragment"
+    android:id="@+id/frameLayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/rounded"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="10dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="152dp"
+            android:layout_height="38dp"
+            android:maxWidth="200dp"
+            android:src="@drawable/ic_baseline_remove_24"
+            app:layout_constraintBottom_toTopOf="@+id/price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="118dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:text="1600 тг"
+            android:textColor="@color/text_white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_conversion_absoluteWidth="411dp">
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:hint="Электронная почта"
+                android:textColorHint="#757575"
+                app:hintTextColor="#757575"
+                tools:layout_conversion_absoluteHeight="56dp"
+                tools:layout_conversion_absoluteWidth="411dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="351dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#252525"
+                    android:textColor="@color/text_white"
+                    tools:layout_conversion_absoluteHeight="56dp"
+                    tools:layout_conversion_absoluteWidth="411dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Способ оплаты"
+                android:textColorHint="#757575"
+                app:hintTextColor="#757575"
+                tools:layout_conversion_absoluteHeight="56dp"
+                tools:layout_conversion_absoluteWidth="411dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="56dp">
+
+                <EditText
+                    android:id="@+id/card"
+                    android:layout_width="351dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="#252525"
+                    android:textColor="@color/text_white"
+                    tools:layout_conversion_absoluteHeight="56dp"
+                    tools:layout_conversion_absoluteWidth="411dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="56dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirm"
+            android:layout_width="351dp"
+            android:layout_height="60dp"
+            app:cornerRadius="10dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/text_red"
+            android:shadowRadius="200"
+            android:text="Подтвердить оплату"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.006">
+
+        </com.google.android.material.button.MaterialButton>
+    </LinearLayout>
+
+
+</FrameLayout>
